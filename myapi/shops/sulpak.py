@@ -2,22 +2,22 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 
+from myapi.shops.shop import Shop
+from myapi.requirements import chrome_version
 
-class Parser:
 
-	def parse_sulpak(self, category):
+class Sulpak(Shop):
+
+	def __init__(self):
+		super().__init__("sulpak")
+
+	def parse(self, category):
 
 		all_products = []
-		pages_names = {
-			"laptop": "noutbuki",
-			"tablets": "planshetiy",
-			"eBook": "elektronniye_knigi",
-			"monitor": "monitoriy",
-		}
-		url = "https://www.sulpak.kz/f/" + pages_names[category] + "?page="
+		url = self.domain + self.page_names[category] + "?page="
 
 		page = 1
-		driver = webdriver.Chrome(ChromeDriverManager(version="87.0.4280.88").install())
+		driver = webdriver.Chrome(ChromeDriverManager(version=chrome_version).install())
 		driver.get(url)
 		data_total = int(driver.find_element_by_class_name("second-title-part").get_attribute("data-total"))
 
@@ -41,9 +41,3 @@ class Parser:
 			page += 1
 
 		return all_products
-
-
-def test_sulpak():
-	p = Parser()
-	all_products = p.parse_sulpak("laptop")
-	assert len(all_products) == 359
