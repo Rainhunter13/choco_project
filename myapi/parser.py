@@ -1,4 +1,5 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 import json
 
 
@@ -16,7 +17,7 @@ class Parser:
 		url = "https://www.sulpak.kz/f/" + pages_names[category] + "?page="
 
 		page = 1
-		driver = webdriver.Chrome("C:/Users/Rakhman/chromedriver.exe")
+		driver = webdriver.Chrome(ChromeDriverManager(version="87.0.4280.88").install())
 		driver.get(url)
 		data_total = int(driver.find_element_by_class_name("second-title-part").get_attribute("data-total"))
 
