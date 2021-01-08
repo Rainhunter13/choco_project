@@ -2,12 +2,41 @@ from django.urls import include, path
 from rest_framework import routers
 from . import views
 
-router = routers.DefaultRouter()
-router.register(r'product', views.ProductViewSet)
+
+class ProductListRouter(routers.DefaultRouter):
+    routers = [
+        routers.Route(
+            url=r'^{prefix}$',
+            mapping={'get': 'list'},
+            name='{basename}-list',
+            detail=False,
+            initkwargs={'suffix': 'List'}
+        ),
+    ]
+
+
+class ProductRouter(routers.DefaultRouter):
+    routes = [
+        routers.Route(
+            url=r'^{prefix}/{lookup}$',
+            mapping={'get': 'retrieve'},
+            name='{basename}-detail',
+            detail=True,
+            initkwargs={'suffix': 'Detail'}
+        ),
+    ]
+
+
+product_list_router = ProductListRouter()
+product_list_router.register('product', views.ProductListViewSet)
+
+product_router = ProductRouter()
+product_router.register('product', views.ProductViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(product_list_router.urls), name="Product List"),
+    path('', include(product_router.urls), name="Product"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
