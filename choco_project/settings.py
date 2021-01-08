@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from config import secret_key
+from config import secret_key, db_password
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'choco_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'choco_db',
+        'USER': 'postgres',
+        'PASSWORD': db_password,
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 

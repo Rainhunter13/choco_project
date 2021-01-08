@@ -6,7 +6,7 @@ domains = {
 pages_names = {
 	"sulpak": {
 		"laptop": "noutbuki",
-		"tablets": "planshetiy",
+		"tablet": "planshetiy",
 		"eBook": "elektronniye_knigi",
 		"monitor": "monitoriy",
 	},
