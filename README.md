@@ -1,11 +1,11 @@
 # choco_project
 choco_project is a backend application designed for receiving products information from shops like "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz" and processing that data to the REST API endpoints. Project is developed as part of the software engineering internship in Chocofamily Holding.
 
-## current progress [last update: 10.01.2021 - 4:20]
+## current progress [last update: 10.01.2021 - 5:47]
 Please note that the application is not fully ready to production. Whole **aimed** functionality is described in next sections, however some tasks are still in development and the **limitations** for current version are as follow:
-- parsing functionality is implemented _only_ for "sulpak.kz" shop
+- parsing functionality is _not_ finished for "techndom.kz" and "shop.kz"
 - celery queue is not connected, so parsing tasks are _not_ yet periodically managed
-However, REST API is ready for the usage.
+However, REST API is ready for limited usage.
 
 ## application capabilities
 With choco_project you could easily keep track of product prices for specific products you need. Products are availabale in 4 categories - "laptop", "tablet", "monitor", "eBook" from 4 shops "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz".
