@@ -1,7 +1,7 @@
 # choco_project
 choco_project is a backend application designed for receiving products information from shops like "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz" and processing that data to the REST API endpoints. Project is developed as part of the software engineering internship in Chocofamily Holding.
 
-## current progress [last update: 10.01.2021 - 5:47]
+## current progress [last update: 10.01.2021 - 5:49]
 Please note that the application is not fully ready to production. Whole **aimed** functionality is described in next sections, however some tasks are still in development and the **limitations** for current version are as follow:
 - parsing functionality is _not_ finished for "techndom.kz" and "shop.kz"
 - celery queue is not connected, so parsing tasks are _not_ yet periodically managed
@@ -13,10 +13,10 @@ Product information contains information such as product name, category, descrip
 
 ## installation
 To install the application on your computer, first clone repository from github with the following command: <br/>
-&nbsp;&nbsp;  git clone https://github.com/Rainhunter13/choco_project <br/>
+&nbsp;&nbsp;  **git clone https://github.com/Rainhunter13/choco_project** <br/>
 You will need to install dependence packages on your local environment, you could do that with follwoing pip command based on requirements.txt file in the root folder: <br/>
-&nbsp;&nbsp;  pip install -r /path/to/requirements.txt <br/>
-Also, you need to have a Google Chrome installed on you machine. After installation, you would need to specify the Chrome verison in requirements.py file inside /myapi folder. *This is required for the proper work of Chrome webdriver used for parsing producs information.*
+&nbsp;&nbsp;  **pip install -r /path/to/requirements.txt** <br/>
+Also, you need to have a Google Chrome installed on you machine. After installation, you would need to specify the Chrome verison in **requirements.py** file inside /myapi folder. *This is required for the proper work of Chrome webdriver used for parsing producs information.*
 After that you can run the project on your machine with command: <br/>
 &nbsp;&nbsp;  python manage.py runserver <br/>
 You can change running options by editing /choco_project/settings.py file. For more information on this, please look at Django official documentation: https://docs.djangoproject.com/en/3.1/ref/settings/
