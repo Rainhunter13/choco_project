@@ -12,9 +12,10 @@ class Updater:
 
 	def combine_products(self):
 		products_combined = []
-		for shop_name in ['sulpak', 'technodom', 'mechta', 'veter']:
-			# for category in ['laptop']: # use only for fast testing!
-			for category in ['laptop', 'tablet', 'monitor', 'eBook']:
+		for shop_name in ['mechta']: # use only for fast testing!
+			for category in ['laptop']: # use only for fast testing!
+		# for shop_name in ['sulpak', 'technodom', 'mechta', 'veter']:
+			# for category in ['laptop', 'tablet', 'monitor', 'eBook']:
 				shop = Sulpak()
 				if shop_name == "technodom":
 					shop = Technodom()

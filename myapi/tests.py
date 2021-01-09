@@ -49,4 +49,14 @@ def test_updater():
 	u.update_db()
 
 
-test_updater()
+def test_mechta():
+	from myapi.shops.mechta import Mechta
+	mechta = Mechta()
+	all_products = mechta.parse("laptop")
+	print(len(all_products))
+	print(all_products)
+	assert len(all_products) > 0
+
+
+# test_mechta()
+# test_updater()
