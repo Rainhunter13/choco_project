@@ -1,6 +1,8 @@
 domains = {
 	"sulpak": "https://www.sulpak.kz/f/",
-	"technodom": "",
+	"technodom": "https://www.technodom.kz/",
+	"mechta": "https://www.technodom.kz/",
+	"veter": "https://shop.kz/"
 }
 
 pages_names = {
@@ -11,6 +13,9 @@ pages_names = {
 		"monitor": "monitoriy",
 	},
 	"technodom": {
-		"laptop": ""
+	},
+	"mechta": {
+	},
+	"veter": {
 	},
 }

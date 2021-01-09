@@ -4,6 +4,7 @@ import json
 
 from myapi.shops.shop import Shop
 from myapi.requirements import chrome_version
+from myapi.shops.product_object import ProductObject
 
 
 class Sulpak(Shop):
@@ -40,4 +41,11 @@ class Sulpak(Shop):
 				break
 			page += 1
 
-		return all_products
+			# break  # use only for fast testing !!!
+
+		all_products_objects = []
+		for product in all_products:
+			product_object = ProductObject(None, product["name"], category, product["unit_price"], -1, -1, -1)
+			all_products_objects.append(product_object)
+
+		return all_products_objects
