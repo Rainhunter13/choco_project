@@ -10,7 +10,7 @@ class ProductListRouter(routers.DefaultRouter):
             mapping={'get': 'list'},
             name='{basename}-list',
             detail=False,
-            initkwargs={'suffix': 'List'}
+            initkwargs={'suffix': 'List'}  # suffix change does not make sense for some reason
         ),
     ]
 
@@ -18,7 +18,7 @@ class ProductListRouter(routers.DefaultRouter):
 class ProductRouter(routers.DefaultRouter):
     routes = [
         routers.Route(
-            url=r'^{prefix}/{lookup}$',
+            url=r'^{prefix}/{lookup}/$',
             mapping={'get': 'retrieve'},
             name='{basename}-detail',
             detail=True,
@@ -30,13 +30,13 @@ class ProductRouter(routers.DefaultRouter):
 product_list_router = ProductListRouter()
 product_list_router.register('product', views.ProductListViewSet)
 
-product_router = ProductRouter()
+product_router = ProductRouter(trailing_slash=False)
 product_router.register('product', views.ProductViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(product_list_router.urls), name="Product List"),
     path('', include(product_router.urls), name="Product"),
+    path('', include(product_list_router.urls), name="Product List"),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
