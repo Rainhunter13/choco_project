@@ -9,31 +9,32 @@ from datetime import datetime
 
 class Updater:
 
-	def combine_products(self):
-		products_combined = []
-		for shop_name in ['sulpak', 'technodom', 'mechta', 'veter']:
+	def get_all_products(self):
+		all_products = []
+		for shop_name in ['Sulpak', 'Technodom', 'Mechta', 'Veter']:
 			for category in ['laptop', 'tablet', 'monitor', 'eBook']:
-				shop = Sulpak()
-				if shop_name == "technodom":
-					shop = Technodom()
-				if shop_name == "mechta":
-					shop = Mechta()
-				if shop_name == "veter":
-					shop = Veter()
+				shop_class = globals()[shop_name]
+				shop = shop_class()
 				products = shop.parse(category)
 				for product in products:
-					# update products_combined with new params if product is already there or add else
-					# for now, assuming no two have same name
-					products_combined.append(product)
-		return products_combined
+					exist_similar = False
+					for p in all_products:
+						if product.is_similar(p):
+							product.update_list(all_products, p)
+							exist_similar = True
+					if not exist_similar:
+						all_products.append(product)
+		return all_products
 
-	def update_db(self):
-		products = self.combine_products()
+	def update_products(self):
+		products = self.get_all_products()
 		for p in products:
-			# add checker for already existing product -> would do put instead of post then!
-			# for now just
-			product = ProductModel(name=p.name, category=p.category)
-			product.save()
+			same_products = ProductModel.objects.all().filter(name=p.name)
+			if len(same_products) > 0:
+				product = same_products[0]
+			else:
+				product = ProductModel(name=p.name, category=p.category)
+				product.save()
 			price = PriceHistory(
 				product=product,
 				date_time=datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
