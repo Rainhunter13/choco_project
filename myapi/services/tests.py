@@ -1,4 +1,5 @@
-import os, django
+import os
+import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
 django.setup()
 
@@ -19,33 +20,7 @@ def test_sulpak():
 	from myapi.services.sulpak import Sulpak
 	sulpak = Sulpak()
 	all_products = sulpak.parse("laptop")
-	print(len(all_products))
-	print(all_products)
 	assert len(all_products) > 0
-
-
-def test_save_to_db():
-	from myapi.repository.models import PriceHistory
-	from myapi.repository.models import Product as ProductModel
-	from datetime import datetime
-	product = ProductModel(name="HP Laptop", category="laptop")
-	product.save()
-	price = PriceHistory(
-		product=product,
-		date_time=datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-		sulpak_price=277900,
-		technodom_price=259900,
-		mechta_price=260000,
-		veter_price=299000
-	)
-	price.save()
-	assert 1 == 1
-
-
-def test_updater():
-	from myapi.services.updator import Updater
-	u = Updater()
-	u.update_db()
 
 
 def test_mechta():
@@ -55,7 +30,3 @@ def test_mechta():
 	print(len(all_products))
 	print(all_products)
 	assert len(all_products) > 0
-
-
-# test_mechta()
-# test_updater()
