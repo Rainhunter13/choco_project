@@ -1,4 +1,4 @@
-from myapi.shops.shop import Shop
+from myapi.services.shop import Shop
 
 
 class Technodom(Shop):

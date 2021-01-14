@@ -1,4 +1,3 @@
-from django.test import TestCase
 import os, django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
 django.setup()
@@ -17,7 +16,7 @@ def test_product_endpoint():
 
 
 def test_sulpak():
-	from myapi.shops.sulpak import Sulpak
+	from myapi.services.sulpak import Sulpak
 	sulpak = Sulpak()
 	all_products = sulpak.parse("laptop")
 	print(len(all_products))
@@ -26,8 +25,8 @@ def test_sulpak():
 
 
 def test_save_to_db():
-	from myapi.models import PriceHistory
-	from myapi.models import Product as ProductModel
+	from myapi.repository.models import PriceHistory
+	from myapi.repository.models import Product as ProductModel
 	from datetime import datetime
 	product = ProductModel(name="HP Laptop", category="laptop")
 	product.save()
@@ -44,13 +43,13 @@ def test_save_to_db():
 
 
 def test_updater():
-	from myapi.shops.updator import Updater
+	from myapi.services.updator import Updater
 	u = Updater()
 	u.update_db()
 
 
 def test_mechta():
-	from myapi.shops.mechta import Mechta
+	from myapi.services.mechta import Mechta
 	mechta = Mechta()
 	all_products = mechta.parse("laptop")
 	print(len(all_products))

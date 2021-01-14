@@ -1,3 +1,4 @@
+chrome_version = "87.0.4280.88"
 domains = {
 	"sulpak": "https://www.sulpak.kz/f/",
 	"technodom": "https://www.technodom.kz/",

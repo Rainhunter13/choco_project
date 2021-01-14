@@ -1,7 +1,7 @@
 import json
 
-from myapi.shops.shop import Shop
-from myapi.shops.product_object import ProductObject
+from myapi.services.shop import Shop
+from myapi.services.product_object import ProductObject
 
 
 class Mechta(Shop):

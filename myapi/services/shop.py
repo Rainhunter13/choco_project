@@ -1,6 +1,4 @@
-from myapi.shops.consts import domains, pages_names
-from myapi.models import Product, PriceHistory
-from datetime import datetime
+from myapi.services.consts import domains, pages_names
 
 
 class Shop:

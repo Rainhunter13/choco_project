@@ -2,9 +2,9 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 
-from myapi.shops.shop import Shop
-from myapi.requirements import chrome_version
-from myapi.shops.product_object import ProductObject
+from myapi.services.shop import Shop
+from myapi.services.consts import chrome_version
+from myapi.services.product_object import ProductObject
 
 
 class Sulpak(Shop):

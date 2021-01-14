@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from . import views
+from myapi.controller import views
 
 
 class ProductListRouter(routers.DefaultRouter):
@@ -33,8 +33,6 @@ product_list_router.register('product', views.ProductListViewSet)
 product_router = ProductRouter(trailing_slash=False)
 product_router.register('product', views.ProductViewSet)
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(product_router.urls), name="Product"),
     path('', include(product_list_router.urls), name="Product List"),

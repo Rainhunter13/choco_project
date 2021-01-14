@@ -1,10 +1,9 @@
-from myapi.shops.shop import Shop
-from myapi.shops.sulpak import Sulpak
-from myapi.shops.technodom import Technodom
-from myapi.shops.mechta import Mechta
-from myapi.shops.veter import Veter
-from myapi.models import PriceHistory
-from myapi.models import Product as ProductModel
+from myapi.services.sulpak import Sulpak
+from myapi.services.technodom import Technodom
+from myapi.services.mechta import Mechta
+from myapi.services.veter import Veter
+from myapi.repository.models import PriceHistory
+from myapi.repository.models import Product as ProductModel
 from datetime import datetime
 
 
@@ -12,10 +11,8 @@ class Updater:
 
 	def combine_products(self):
 		products_combined = []
-		for shop_name in ['mechta']: # use only for fast testing!
-			for category in ['laptop']: # use only for fast testing!
-		# for shop_name in ['sulpak', 'technodom', 'mechta', 'veter']:
-			# for category in ['laptop', 'tablet', 'monitor', 'eBook']:
+		for shop_name in ['sulpak', 'technodom', 'mechta', 'veter']:
+			for category in ['laptop', 'tablet', 'monitor', 'eBook']:
 				shop = Sulpak()
 				if shop_name == "technodom":
 					shop = Technodom()

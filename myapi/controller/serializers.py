@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, PriceHistory
+from myapi.repository.models import Product, PriceHistory
 
 
 class ProductListSerializer(serializers.HyperlinkedModelSerializer):

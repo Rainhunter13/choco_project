@@ -1,8 +1,7 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 
 from .serializers import ProductListSerializer, ProductSerializer
-from .models import Product
+from myapi.repository.models import Product
 
 
 # Create your views here.
