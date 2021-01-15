@@ -25,10 +25,10 @@ def find_max_price(category):
 	for product in products:
 		cur_max_price = -1
 		price_history = product.price_history
-		for price in price_history.all():
-			for field in dir(price):
-				if field.endswith('price') and cur_max_price < getattr(price, field):
-					cur_max_price = getattr(price, field)
+		price = price_history.all().first()
+		for field in dir(price):
+			if field.endswith('price') and cur_max_price < getattr(price, field):
+				cur_max_price = getattr(price, field)
 		if cur_max_price > max_price:
 			max_price = cur_max_price
 			max_price_product = product
