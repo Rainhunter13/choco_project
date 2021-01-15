@@ -1,3 +1,40 @@
+from myapi.repository.models import Product as ProductModel
+
+
+def find_min_price(category):
+	products = ProductModel.objects.all().filter(category=category)
+	min_price = 1e8
+	min_price_product = products.first()
+	for product in products:
+		cur_min_price = 1e8
+		price_history = product.price_history
+		for price in price_history.all():
+			for field in dir(price):
+				if field.endswith('price') and cur_min_price > getattr(price, field) > 0:
+					cur_min_price = getattr(price, field)
+		if cur_min_price < min_price:
+			min_price = cur_min_price
+			min_price_product = product
+	return min_price_product
+
+
+def find_max_price(category):
+	products = ProductModel.objects.all().filter(category=category)
+	max_price = -1
+	max_price_product = products.last()
+	for product in products:
+		cur_max_price = -1
+		price_history = product.price_history
+		for price in price_history.all():
+			for field in dir(price):
+				if field.endswith('price') and cur_max_price < getattr(price, field):
+					cur_max_price = getattr(price, field)
+		if cur_max_price > max_price:
+			max_price = cur_max_price
+			max_price_product = product
+	return max_price_product
+
+
 class ProductObject:
 
 	id = None
