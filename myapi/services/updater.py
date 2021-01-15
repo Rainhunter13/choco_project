@@ -1,10 +1,6 @@
-from myapi.services.sulpak import Sulpak
-from myapi.services.technodom import Technodom
-from myapi.services.mechta import Mechta
-from myapi.services.veter import Veter
+from datetime import datetime
 from myapi.repository.models import PriceHistory
 from myapi.repository.models import Product as ProductModel
-from datetime import datetime
 
 
 class Updater:
@@ -30,7 +26,7 @@ class Updater:
 		products = self.get_all_products()
 		for p in products:
 			same_products = ProductModel.objects.all().filter(name=p.name)
-			if len(same_products) > 0:
+			if not same_products > 0:
 				product = same_products[0]
 			else:
 				product = ProductModel(name=p.name, category=p.category)
@@ -44,4 +40,3 @@ class Updater:
 				veter_price=p.veter_price
 			)
 			price.save()
-		return

@@ -17,16 +17,16 @@ def test_product_endpoint():
 
 
 def test_sulpak():
-	from myapi.services.sulpak import Sulpak
+	from .sulpak import Sulpak
 	sulpak = Sulpak()
 	all_products = sulpak.parse("laptop")
-	assert len(all_products) > 0
+	assert all_products
 
 
 def test_mechta():
-	from myapi.services.mechta import Mechta
+	from .mechta import Mechta
 	mechta = Mechta()
 	all_products = mechta.parse("laptop")
 	print(len(all_products))
 	print(all_products)
-	assert len(all_products) > 0
+	assert all_products

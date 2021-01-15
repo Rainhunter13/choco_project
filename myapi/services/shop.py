@@ -1,4 +1,4 @@
-from myapi.services.consts import domains, pages_names
+from myapi.services.consts import DOMAINS, PAGES_NAMES
 
 
 class Shop:
@@ -7,8 +7,8 @@ class Shop:
 	page_names = {}
 
 	def __init__(self, name):
-		self.domain = domains[name]
-		self.page_names = pages_names[name]
+		self.domain = DOMAINS[name]
+		self.page_names = PAGES_NAMES[name]
 
 	def parse(self, category):
 		return []
