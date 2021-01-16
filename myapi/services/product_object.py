@@ -8,10 +8,10 @@ def find_min_price(category):
 	for product in products:
 		cur_min_price = 1e8
 		price_history = product.price_history
-		for price in price_history.all():
-			for field in dir(price):
-				if field.endswith('price') and cur_min_price > getattr(price, field) > 0:
-					cur_min_price = getattr(price, field)
+		price = price_history.all().last()
+		for field in dir(price):
+			if field.endswith('price') and cur_min_price > getattr(price, field) > 0:
+				cur_min_price = getattr(price, field)
 		if cur_min_price < min_price:
 			min_price = cur_min_price
 			min_price_product = product
@@ -25,7 +25,7 @@ def find_max_price(category):
 	for product in products:
 		cur_max_price = -1
 		price_history = product.price_history
-		price = price_history.all().first()
+		price = price_history.all().last()
 		for field in dir(price):
 			if field.endswith('price') and cur_max_price < getattr(price, field):
 				cur_max_price = getattr(price, field)

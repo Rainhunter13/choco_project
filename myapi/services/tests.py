@@ -2,7 +2,7 @@ import os
 import django
 
 # TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
 # django.setup()
 
 
@@ -18,29 +18,8 @@ def test_product_endpoint():
 	assert response.text.__contains__("sulpak_price")
 
 
-def test_sulpak():
-	from .sulpak import Sulpak
-	sulpak = Sulpak()
-	all_products = sulpak.parse("laptop")
-	assert all_products
-
-
-def test_mechta():
-	from .mechta import Mechta
-	mechta = Mechta()
-	all_products = mechta.parse("laptop")
-	assert all_products
-
-
-def test_veter():
-	from myapi.services.veter import Veter
-	veter = Veter()
-	all_products = veter.parse("eBook")
-	assert all_products
-
-
 def test_min_price():
-	from .product_object import find_min_price
+	from myapi.services.product_object import find_min_price
 	min_price_product = find_min_price('eBook')
 	min_price = 1e8
 	for field in dir(min_price_product.price_history.all().first()):

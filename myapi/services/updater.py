@@ -1,13 +1,18 @@
 from datetime import datetime
 from myapi.repository.models import PriceHistory
 from myapi.repository.models import Product as ProductModel
+from .sulpak import Sulpak
+from .technodom import Technodom
+from .mechta import Mechta
+from .veter import Veter
 
 
 class Updater:
 
 	def get_all_products(self):
 		all_products = []
-		for shop_name in ['Sulpak', 'Technodom', 'Mechta', 'Veter']:
+		# for shop_name in ['Sulpak', 'Technodom', 'Mechta', 'Veter']:
+		for shop_name in ['Mechta']:
 			for category in ['laptop', 'tablet', 'monitor', 'eBook']:
 				shop_class = globals()[shop_name]
 				shop = shop_class()
@@ -26,7 +31,7 @@ class Updater:
 		products = self.get_all_products()
 		for p in products:
 			same_products = ProductModel.objects.all().filter(name=p.name)
-			if not same_products > 0:
+			if len(same_products) > 0:
 				product = same_products[0]
 			else:
 				product = ProductModel(name=p.name, category=p.category)
