@@ -1,7 +1,7 @@
 import os
 import django
 
-# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST UNCOMMENT:
+# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
 # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
 # django.setup()
 
@@ -29,6 +29,13 @@ def test_mechta():
 	from .mechta import Mechta
 	mechta = Mechta()
 	all_products = mechta.parse("laptop")
+	assert all_products
+
+
+def test_veter():
+	from myapi.services.veter import Veter
+	veter = Veter()
+	all_products = veter.parse("eBook")
 	assert all_products
 
 

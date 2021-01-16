@@ -22,5 +22,9 @@ PAGES_NAMES = {
 		"monitor": "monitory",
 	},
 	"veter": {
+		"laptop": "noutbuki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"tablet": "planshety/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"monitor": "monitory/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"eBook": "elektronnye-knigi/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
 	},
 }
