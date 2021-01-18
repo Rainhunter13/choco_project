@@ -1,8 +1,8 @@
 import os
 import django
 
-# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
+# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
 # django.setup()
 
 
@@ -36,3 +36,8 @@ def test_max_price():
 		if field.endswith("price") and max_price < getattr(max_price_product.price_history.all().first(), field):
 			max_price = getattr(max_price_product.price_history.all().first(), field)
 	assert max_price == 197890
+
+
+# from myapi.services.updater import Updater
+# u = Updater()
+# u.update_products()

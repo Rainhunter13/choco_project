@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'choco_db',
-        'USER': 'postgres',
+        'USER': 'rainhunter_db',
         'PASSWORD': db_password,
         'HOST': '127.0.0.1',
         'PORT': '5432',
@@ -134,9 +134,10 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_ENABLE_UTC = True
+CELERY_IMPORTS = ("celery", )
 CELERY_BEAT_SCHEDULE = {
-    'update every 30': {
-        'task': 'update_db',
-        'schedule': 30.0,
+    'update-every-hour': {
+        'task': 'choco_project.celery.update_db',
+        'schedule': 3600.0,
     },
 }

@@ -65,6 +65,6 @@ class ProductObject:
 				for price_field in dir(self):
 					if price_field.endswith("price") and getattr(self, price_field) >= 0:
 						setattr(new_Product, price_field, getattr(self, price_field))
-				p[ind] = new_Product
+				products[ind] = new_Product
 			ind += 1
 		return products
