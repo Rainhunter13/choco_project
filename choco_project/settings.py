@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'choco_db',
         'USER': 'rainhunter_db',
         'PASSWORD': db_password,
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -127,17 +127,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # CELERY STUFF
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json'
+                         ]
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_ENABLE_UTC = True
 CELERY_IMPORTS = ("celery", )
 CELERY_BEAT_SCHEDULE = {
-    'update-every-hour': {
+    'update-every-10min': {
         'task': 'choco_project.celery.update_db',
-        'schedule': 3600.0,
+        'schedule': 600.0,
     },
 }

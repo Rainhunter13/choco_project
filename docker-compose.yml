@@ -1,14 +1,71 @@
-version: "3.8"
+version: "3.9"
 
 services:
-  django:
-    build: .
-    container_name: django
-    command: python manage.py runserver 0.0.0.0:8000
+
+#  selenium-hub:
+#    restart: always
+#    image: selenium/hub:3.14.0
+#    container_name: selenium-hub
+#    ports:
+#      - "4444:4444"
+
+#  chrome:
+#    restart: always
+#    image: selenium/node-chrome-debug:3.14.0
+#    ports:
+#      - "5900-5999:5900"
+#    depends_on:
+#      - selenium-hub
+#    environment:
+#      HUB_HOST: selenium-hub
+#      HUB_PORT_4444_TCP_ADDR: selenium-hub
+#      HUB_PORT_4444_TCP_PORT: "4444"
+#      DBUS_SESSION_BUS_ADDRESS: "/dev/null"
+#    links:
+#      - selenium-hub:hub
+
+  redis:
+    image: redis
+    ports:
+    - '6379:6379'
+
+  db:
+    image: postgres
     volumes:
-      - .:/
+      - .:/code
+    environment:
+      - POSTGRES_DB=choco_db
+      - POSTGRES_USER=rainhunter_db
+      - POSTGRES_PASSWORD=Rainhunter13?
+    ports:
+    - "5432:5432"
+
+  web:
+    build: .
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=0
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+    depends_on:
+      - db
+
+  celery_worker:
+    build: .
+    command: celery -A choco_project worker --loglevel=INFO
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis
+      - db
+
+  celery_beat:
+    build: .
+    command: celery -A choco_project beat --loglevel=INFO
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis
+      - db

@@ -11,8 +11,8 @@ class Updater:
 
 	def get_all_products(self):
 		all_products = []
-		for shop_name in ['Sulpak', 'Technodom', 'Mechta', 'Veter']:
-		# for shop_name in ['Mechta']:
+		# for shop_name in ['Sulpak', 'Technodom', 'Mechta', 'Veter']:
+		for shop_name in ['Mechta']:
 			for category in ['laptop', 'tablet', 'monitor', 'eBook']:
 				shop_class = globals()[shop_name]
 				shop = shop_class()

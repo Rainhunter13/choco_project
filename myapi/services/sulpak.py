@@ -1,9 +1,8 @@
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import json
 
 from myapi.services.shop import Shop
-from myapi.services.consts import CHROME_VERSION
 from myapi.services.product_object import ProductObject
 
 
@@ -18,7 +17,9 @@ class Sulpak(Shop):
 		url = self.domain + self.page_names[category] + "?page="
 
 		page = 1
-		driver = webdriver.Chrome(ChromeDriverManager(version=CHROME_VERSION).install())
+
+		driver = webdriver.Remote('http://hub:4444/', desired_capabilities=DesiredCapabilities.CHROME)
+
 		driver.get(url)
 		data_total = int(driver.find_element_by_class_name("second-title-part").get_attribute("data-total"))
 
