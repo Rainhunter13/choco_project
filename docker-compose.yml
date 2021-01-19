@@ -2,27 +2,19 @@ version: "3.9"
 
 services:
 
-#  selenium-hub:
-#    restart: always
-#    image: selenium/hub:3.14.0
-#    container_name: selenium-hub
-#    ports:
-#      - "4444:4444"
+  hub:
+    image: selenium/hub
+    ports:
+    - 4444:4444
 
-#  chrome:
-#    restart: always
-#    image: selenium/node-chrome-debug:3.14.0
-#    ports:
-#      - "5900-5999:5900"
-#    depends_on:
-#      - selenium-hub
-#    environment:
-#      HUB_HOST: selenium-hub
-#      HUB_PORT_4444_TCP_ADDR: selenium-hub
-#      HUB_PORT_4444_TCP_PORT: "4444"
-#      DBUS_SESSION_BUS_ADDRESS: "/dev/null"
-#    links:
-#      - selenium-hub:hub
+  chrome:
+    image: selenium/node-chrome
+    volumes:
+      - .:/code
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
 
   redis:
     image: redis
@@ -59,6 +51,7 @@ services:
       - web
       - redis
       - db
+      - hub
 
   celery_beat:
     build: .
