@@ -1,4 +1,4 @@
-CATEGORIES = ['laptop', 'tablet', 'monitor', 'eBook']
+CATEGORIES = ['laptop', 'tablet', 'monitor', 'eBook', 'fridge', 'freezer', 'electric_stoves', 'multicooker', 'meet_grinder', 'microwave']
 SHOPS = ['sulpak', 'technodom', 'mechta', 'veter']
 SHOP_CLASSES = ['Sulpak', 'Technodom', 'Mechta', 'Veter']
 
@@ -23,6 +23,12 @@ PAGES_NAMES = {
 		"tablet": "planshety",
 		"monitor": "monitory",
 		"eBook": "elektronnye-knigi",
+		"fridge": "holodilniki",
+		"freezer": "morozilniki",
+		"electric_stoves": "elektricheskie-plity",
+		"multicooker": "multivarki",
+		"meet_grinder": "myasorubki",
+		"microwave": "mikrovolnovye-pechi",
 	},
 	"veter": {
 		"laptop": "noutbuki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
