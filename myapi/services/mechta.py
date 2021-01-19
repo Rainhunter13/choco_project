@@ -1,10 +1,11 @@
 import json
 
-from myapi.services.shop import Shop
+from myapi.services.seller import Seller
 from myapi.services.product_object import ProductObject
+from .consts import SHOPS
 
 
-class Mechta(Shop):
+class Mechta(Seller):
 
 	def __init__(self):
 		super().__init__("mechta")
@@ -18,7 +19,11 @@ class Mechta(Shop):
 		response = requests.get(url)
 		js = json.loads(response.text)['data']['ITEMS']
 		for product in js:
-			p = ProductObject(None, product['NAME'], category, -1, -1, product['PRICE']['PRICE'], -1)
+			prices = {}
+			for shop in SHOPS:
+				prices[shop] = None
+			prices['mechta'] = product['PRICE']['PRICE']
+			p = ProductObject(None, product['NAME'], category, prices)
 			all_products_objects.append(p)
 
 		return all_products_objects

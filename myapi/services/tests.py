@@ -1,9 +1,6 @@
 import os
-import django
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "choco_project.settings")
-# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
-# django.setup()
 
 
 def test_product_list_endpoint():
@@ -38,6 +35,9 @@ def test_max_price():
 	assert max_price == 197890
 
 
-# from myapi.services.updater import Updater
-# u = Updater()
-# u.update_products()
+# TO RUN THE FILE SEPARATELY FROM DJANGO APP OR PYTEST, UNCOMMENT:
+# import django
+# django.setup()
+#
+# from myapi.services.updater import update_products
+# update_products()

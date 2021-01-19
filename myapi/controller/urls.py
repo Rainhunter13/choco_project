@@ -27,20 +27,21 @@ class ProductRouter(routers.DefaultRouter):
     ]
 
 
-class CategoryRouter(routers.DefaultRouter):
-    routes = [
+class SellerRouter(routers.DefaultRouter):
+    routers = [
         routers.Route(
-            url=r'^{prefix}/$',
+            url=r'^{prefix}$',
             mapping={'get': 'list'},
             name='{basename}-list',
             detail=False,
             initkwargs={'suffix': ''}
         ),
-        routers.DynamicRoute(
-            url=r'^{prefix}/{url_path}/$',
-            name='{basename}-{url_name}',
+        routers.Route(
+            url=r'^{prefix}/{lookup}/$',
+            mapping={'get': 'retrieve'},
+            name='{basename}-detail',
             detail=True,
-            initkwargs={}
+            initkwargs={'suffix': 'Detail'}
         ),
     ]
 
@@ -48,17 +49,20 @@ class CategoryRouter(routers.DefaultRouter):
 product_list_router = ProductListRouter()
 product_list_router.register('product', views.ProductListViewSet)
 
-product_router = ProductRouter(trailing_slash=False)
+product_router = ProductRouter()
 product_router.register('product', views.ProductViewSet)
 
-category_router = CategoryRouter()
-category_router.register('laptop', views.LaptopViewSet)
-category_router.register('tablet', views.TabletViewSet)
-category_router.register('monitor', views.MonitorViewSet)
-category_router.register('eBook', views.EBookViewSet)
+seller_router = SellerRouter()
+seller_router.register('sulpak', views.SulpakViewSet)
+seller_router.register('technodom', views.TechnodomViewSet)
+seller_router.register('mechta', views.MechtaViewSet)
+seller_router.register('shop', views.ShopViewSet)
 
 urlpatterns = [
-    path('', include(product_router.urls), name="Product"),
+    path('', include(seller_router.urls), name="Seller"),
     path('', include(product_list_router.urls), name="Product List"),
-    path('', include(category_router.urls), name="Product List by Category"),
+    path('', include(product_router.urls), name="Product"),
+    path('<str:cat>/', views.category, name="Category"),
+    path('<str:cat>/min_price', views.category_min_price, name="Category Min Price"),
+    path('<str:cat>/max_price', views.category_max_price, name="Category Max Price"),
 ]

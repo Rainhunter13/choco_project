@@ -1,7 +1,7 @@
 from myapi.services.consts import DOMAINS, PAGES_NAMES
 
 
-class Shop:
+class Seller:
 
 	domain = ""
 	page_names = {}

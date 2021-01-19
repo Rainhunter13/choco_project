@@ -1,22 +1,49 @@
 from rest_framework import serializers
-from myapi.repository.models import Product, PriceHistory
+from myapi.repository.models import Product, PriceRecording, Price
 
 
-class ProductListSerializer(serializers.HyperlinkedModelSerializer):
+class PriceSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
-		model = Product
-		fields = ('category', 'id', 'name')
+		model = Price
+		fields = ('seller', 'price')
 
 
-class PriceHistorySerializer(serializers.HyperlinkedModelSerializer):
+class PriceRecordingSerializer(serializers.HyperlinkedModelSerializer):
+	prices = PriceSerializer(many=True)
+
 	class Meta:
-		model = PriceHistory
-		fields = ('date_time', 'sulpak_price', 'technodom_price', 'mechta_price', 'veter_price')
+		model = PriceRecording
+		fields = ('date_time', 'prices')
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-	price_history = PriceHistorySerializer(many=True)
+	prices = PriceSerializer(many=True)
 
 	class Meta:
 		model = Product
-		fields = ['category', 'id', 'name', 'description', 'price_history']
+		fields = ('title', 'prices')
+
+
+class ProductOldPricesSerializer(serializers.HyperlinkedModelSerializer):
+	prices = PriceSerializer(many=True)
+	old_prices = PriceRecordingSerializer(many=True)
+
+	class Meta:
+		model = Product
+		fields = ('id', 'title', 'prices', 'old_prices')
+
+
+class ProductListSerializer(serializers.HyperlinkedModelSerializer):
+	prices = PriceSerializer(many=True)
+
+	class Meta:
+		model = Product
+		fields = ('id', 'title', 'prices')
+
+
+class MinMaxSerializer(serializers.HyperlinkedModelSerializer):
+	prices = PriceSerializer(many=True)
+
+	class Meta:
+		model = Product
+		fields = ('category', 'title', 'prices')

@@ -1,10 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 
-from myapi.services.shop import Shop
+from myapi.services.seller import Seller
 
 
-class Veter(Shop):
+class Veter(Seller):
 
 	def __init__(self):
 		super().__init__("veter")

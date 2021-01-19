@@ -1,7 +1,7 @@
-from myapi.services.shop import Shop
+from myapi.services.seller import Seller
 
 
-class Technodom(Shop):
+class Technodom(Seller):
 
 	def __init__(self):
 		super().__init__("technodom")

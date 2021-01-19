@@ -3,17 +3,20 @@ from django.db import models
 
 # Create your models here.
 class Product(models.Model):
-	category = models.CharField(max_length=60, default="no category")
-	name = models.CharField(max_length=500, default="no name")
 
-	description = models.CharField(max_length=1000, default="no description")
+	title = models.CharField(max_length=500, default="N/A")
+	category = models.CharField(max_length=200, default="N/A")
 
 
-class PriceHistory(models.Model):
-	product = models.ForeignKey(Product, related_name="price_history", on_delete=models.CASCADE)
-	date_time = models.CharField(max_length=100, default="01.01.70 00:00:00")
+class PriceRecording(models.Model):
+	product = models.ForeignKey(Product, related_name="old_prices", on_delete=models.CASCADE)
 
-	sulpak_price = models.IntegerField(default=-1)
-	technodom_price = models.IntegerField(default=-1)
-	mechta_price = models.IntegerField(default=-1)
-	veter_price = models.IntegerField(default=-1)
+	date_time = models.CharField(max_length=100, default="dd.mm.yy hh:mm:ss")
+
+
+class Price(models.Model):
+	price_recording = models.ForeignKey(PriceRecording, related_name="prices", on_delete=models.CASCADE, null=True)
+	product = models.ForeignKey(Product, related_name="prices", on_delete=models.CASCADE, null=True)
+
+	seller = models.CharField(max_length=100)
+	price = models.IntegerField(default=None, null=True)

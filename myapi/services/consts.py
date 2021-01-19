@@ -1,4 +1,7 @@
-CHROME_VERSION = "87.0.4280.88"
+CATEGORIES = ['laptop', 'tablet', 'monitor', 'eBook']
+SHOPS = ['sulpak', 'technodom', 'mechta', 'veter']
+SHOP_CLASSES = ['Sulpak', 'Technodom', 'Mechta', 'Veter']
+
 DOMAINS = {
 	"sulpak": "https://www.sulpak.kz/f/",
 	"technodom": "https://www.technodom.kz/",
@@ -10,16 +13,16 @@ PAGES_NAMES = {
 	"sulpak": {
 		"laptop": "noutbuki",
 		"tablet": "planshetiy",
-		"eBook": "elektronniye_knigi",
 		"monitor": "monitoriy",
+		"eBook": "elektronniye_knigi",
 	},
 	"technodom": {
 	},
 	"mechta": {
 		"laptop": "noutbuki",
 		"tablet": "planshety",
-		"eBook": "elektronnye-knigi",
 		"monitor": "monitory",
+		"eBook": "elektronnye-knigi",
 	},
 	"veter": {
 		"laptop": "noutbuki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",

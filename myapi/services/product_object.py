@@ -4,67 +4,65 @@ from myapi.repository.models import Product as ProductModel
 def find_min_price(category):
 	products = ProductModel.objects.all().filter(category=category)
 	min_price = 1e8
-	min_price_product = products.first()
+	min_price_product = products.last()
+	min_price_shop = ""
 	for product in products:
-		cur_min_price = 1e8
-		price_history = product.price_history
-		price = price_history.all().last()
-		for field in dir(price):
-			if field.endswith('price') and cur_min_price > getattr(price, field) > 0:
-				cur_min_price = getattr(price, field)
+		cur_min_price = -1
+		cur_shop = ""
+		for price in product.prices.all():
+			if price.price is not None and price.price < cur_min_price:
+				cur_min_price = price.price
+				cur_shop = price.seller
 		if cur_min_price < min_price:
 			min_price = cur_min_price
+			min_price_shop = cur_shop
 			min_price_product = product
-	return min_price_product
+	return min_price_product, min_price_shop
 
 
 def find_max_price(category):
 	products = ProductModel.objects.all().filter(category=category)
 	max_price = -1
 	max_price_product = products.last()
+	max_price_shop = ""
 	for product in products:
 		cur_max_price = -1
-		price_history = product.price_history
-		price = price_history.all().last()
-		for field in dir(price):
-			if field.endswith('price') and cur_max_price < getattr(price, field):
-				cur_max_price = getattr(price, field)
+		cur_shop = ""
+		for price in product.prices.all():
+			if price.price is not None and price.price > cur_max_price:
+				cur_max_price = price.price
+				cur_shop = price.seller
 		if cur_max_price > max_price:
 			max_price = cur_max_price
+			max_price_shop = cur_shop
 			max_price_product = product
-	return max_price_product
+	return max_price_product, max_price_shop
 
 
 class ProductObject:
 
 	id = None
-	name = ""
+	title = ""
 	category = ""
-	sulpak_price = -1
-	technodom_price = -1
-	mechta_price = -1
-	veter_price = -1
+	prices = {}
 
-	def __init__(self, id, name, category, sulpak_price, technodom_price, mechta_price, veter_price):
-		self.id = id
-		self.name = name
+	def __init__(self, uid, title, category, prices):
+		self.id = uid
+		self.title = title
 		self.category = category
-		self.sulpak_price = sulpak_price
-		self.technodom_price = technodom_price
-		self.mechta_price = mechta_price
-		self.veter_price = veter_price
+		self.prices = prices
 
-	def is_similar(self, product):
-		return self.name == product.name
+	def is_similar(self, old_product):
+		return self.title == old_product.title
 
 	def update_list(self, products, old_product):
 		ind = 0
-		for p in products:
-			if p.name == old_product.name:
-				new_Product = old_product
-				for price_field in dir(self):
-					if price_field.endswith("price") and getattr(self, price_field) >= 0:
-						setattr(new_Product, price_field, getattr(self, price_field))
-				products[ind] = new_Product
+		for product in products:
+			if product.name == old_product.name:
+				new_product = old_product
+				for shop in self.prices:
+					if self.prices[shop] is not None:
+						new_product.prices[shop] = self.prices[shop]
+				products[ind] = new_product
 			ind += 1
 		return products

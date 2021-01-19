@@ -2,16 +2,18 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import json
 
-from myapi.services.shop import Shop
+from myapi.services.seller import Seller
 from myapi.services.product_object import ProductObject
 
 
-class Sulpak(Shop):
+class Sulpak(Seller):
 
 	def __init__(self):
 		super().__init__("sulpak")
 
 	def parse(self, category):
+
+		return []  # TEMPORARY -> BUG IN DOCKER AND CHROMEDRIVER -> TO FIX !!!
 
 		all_products = []
 		url = self.domain + self.page_names[category] + "?page="
@@ -46,7 +48,11 @@ class Sulpak(Shop):
 
 		all_products_objects = []
 		for product in all_products:
-			product_object = ProductObject(None, product["name"], category, product["unit_price"], -1, -1, -1)
+			prices = {}
+			for shop in SHOPS:
+				prices[shop] = None
+			prices['sulpak'] = product["unit_price"]
+			product_object = ProductObject(None, product["name"], category, prices)
 			all_products_objects.append(product_object)
 
 		return all_products_objects

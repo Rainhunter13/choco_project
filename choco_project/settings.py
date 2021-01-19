@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
@@ -133,12 +133,12 @@ CELERY_ACCEPT_CONTENT = ['application/json'
                          ]
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+CELERY_TIMEZONE = 'Asia/Almaty'
 CELERY_ENABLE_UTC = True
 CELERY_IMPORTS = ("celery", )
 CELERY_BEAT_SCHEDULE = {
     'update-every-10min': {
         'task': 'choco_project.celery.update_db',
-        'schedule': 600.0,
+        'schedule': 1800.0,
     },
 }

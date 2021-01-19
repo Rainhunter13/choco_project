@@ -12,6 +12,7 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 @app.task
 def update_db():
-	from myapi.services.updater import Updater
-	u = Updater()
-	u.update_products()
+	from myapi.services.updater import update_products
+	# from myapi.repository.models import Product
+	# Product.objects.all().delete()
+	update_products()
