@@ -2,19 +2,19 @@ version: "3.9"
 
 services:
 
-  hub:
-    image: selenium/hub
-    ports:
-    - 4444:4444
-
-  chrome:
-    image: selenium/node-chrome
-    volumes:
-      - .:/code
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
+#  hub:
+#    image: selenium/hub
+#    ports:
+#    - '4444:4444'
+#
+#  chrome:
+#    image: selenium/node-chrome
+#    volumes:
+#      - .:/code
+#    depends_on:
+#      - hub
+#    environment:
+#      HUB_HOST: hub
 
   redis:
     image: redis
@@ -51,7 +51,7 @@ services:
       - web
       - redis
       - db
-      - hub
+#      - hub
 
   celery_beat:
     build: .

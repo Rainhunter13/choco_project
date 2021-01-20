@@ -4,7 +4,7 @@ import json
 
 from myapi.services.seller import Seller
 from myapi.services.product_object import ProductObject
-from .consts import SHOPS
+from myapi.services.consts import SHOPS
 
 
 class Sulpak(Seller):
@@ -14,7 +14,8 @@ class Sulpak(Seller):
 
     def parse(self, category):
 
-        # return []  # TEMPORARY -> BUG IN DOCKER AND CHROMEDRIVER -> TO FIX !!!
+        # TEMPORARY -> BUG IN DOCKER & CHROMEDRIVER -> TO FIX !!!
+        return []
 
         all_products = []
         if category not in self.page_names:
@@ -46,8 +47,6 @@ class Sulpak(Seller):
             if len(all_products) >= data_total:
                 break
             page += 1
-
-        # break  # use only for fast testing !!!
 
         all_products_objects = []
         for product in all_products:

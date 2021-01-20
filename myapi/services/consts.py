@@ -36,5 +36,11 @@ PAGES_NAMES = {
 		"tablet": "planshety/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
 		"monitor": "monitory/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
 		"eBook": "elektronnye-knigi/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"fridge": "kholodilniki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"freezer": "morozilniki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"electric_stoves": "plity/filter/fltr_type_control-is-elektricheskaya/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"multicooker": "multivarki-parovarki/filter/almaty-is-v_nalichii-or-dostavim/fltr_device_type-is-multivarka/apply/",
+		"meet_grinder": "elektromyasorubki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
+		"microwave": "mikrovolnovki/filter/almaty-is-v_nalichii-or-ojidaem-or-dostavim/apply/",
 	},
 }
