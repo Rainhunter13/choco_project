@@ -52,8 +52,12 @@ class ProductObject:
 		self.category = category
 		self.prices = prices
 
-	def is_similar(self, old_product):
-		return self.title == old_product.title
+	def get_similar(self):
+		"""Returns a product (as a model!) which is similar to the self product"""
+		similar_products = ProductModel.objects.filter(title=self.title)
+		if similar_products:
+			return similar_products.first()
+		return None
 
 	def update_list(self, products, old_product):
 		ind = 0

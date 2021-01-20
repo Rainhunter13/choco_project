@@ -138,7 +138,7 @@ CELERY_ENABLE_UTC = True
 CELERY_IMPORTS = ("celery", )
 CELERY_BEAT_SCHEDULE = {
     'update-every-hour': {
-        'task': 'choco_project.celery.update_db',
+        'task': 'choco_project.celery.update',
         'schedule': 1800.0,
     },
 }

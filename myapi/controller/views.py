@@ -43,8 +43,8 @@ class MechtaViewSet(viewsets.ModelViewSet):
 	http_method_names = ['get']
 
 
-class ShopViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.filter(old_prices__prices__seller="shop", old_prices__prices__price__gt=0).distinct()
+class VeterViewSet(viewsets.ModelViewSet):
+	queryset = Product.objects.filter(old_prices__prices__seller="veter", old_prices__prices__price__gt=0).distinct()
 	serializer_class = ProductOldPricesSerializer
 	lookup_field = 'id'
 	http_method_names = ['get']

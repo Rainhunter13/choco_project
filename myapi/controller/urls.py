@@ -56,7 +56,7 @@ seller_router = SellerRouter()
 seller_router.register('sulpak', views.SulpakViewSet)
 seller_router.register('technodom', views.TechnodomViewSet)
 seller_router.register('mechta', views.MechtaViewSet)
-seller_router.register('shop', views.ShopViewSet)
+seller_router.register('veter', views.VeterViewSet)
 
 urlpatterns = [
     path('', include(seller_router.urls), name="Seller"),

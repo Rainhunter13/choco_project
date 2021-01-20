@@ -7,12 +7,28 @@ app = Celery('choco_project')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# app.autodiscover_tasks()
+
+@app.task
+def update():
+	"""Task for updating all databases based on new products parsed"""
+	update_postgres_task.apply()
+	update_big_query_task.apply()
 
 
 @app.task
-def update_db():
-	from myapi.services.updater import update_products
-	# from myapi.repository.models import Product
-	# Product.objects.all().delete()
-	update_products()
+def update_postgres_task():
+	"""Task for parsing new products info and putting it to the postgres"""
+	from myapi.services.updater import update_postgres
+	update_postgres()
+
+
+@app.task
+def update_big_query_task():
+	"""Task for updating Big Query database based on postgres"""
+	from myapi.services.updater import update_big_query
+	update_big_query()
+
+
+@app.task
+def unite_similar_products():
+	pass

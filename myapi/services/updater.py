@@ -13,7 +13,7 @@ from .consts import SHOP_CLASSES
 from .consts import SHOPS
 
 
-def get_all_products():
+def get_new_products():
 	"""Returns a list of products objects parsed from all shops and categories"""
 	all_products = []
 	for shop_name in SHOP_CLASSES:
@@ -22,23 +22,17 @@ def get_all_products():
 			shop = shop_class()
 			products = shop.parse(category)
 			for product in products:
-				exist_similar = False
-				for old_product in all_products:
-					if product.is_similar(old_product):
-						all_products = product.update_list(all_products, old_product)
-						exist_similar = True
-				if not exist_similar:
-					all_products.append(product)
+				all_products.append(product)
 	return all_products
 
 
-def update_products():
-	"""Update the database with the list of newly parsed product objects list"""
-	products = get_all_products()
+def update_postgres():
+	"""Update the Postgresql database with the list of newly parsed product objects list"""
+	products = get_new_products()
 	for product in products:
-		same_products = ProductModel.objects.all().filter(title=product.title)
-		if len(same_products) > 0:
-			new_product = same_products[0]
+		similar_product = product.get_similar()
+		if similar_product is not None:
+			new_product = similar_product
 		else:
 			new_product = ProductModel(title=product.title, category=product.category)
 			new_product.save()
@@ -51,3 +45,39 @@ def update_products():
 		for shop in SHOPS:
 			price = Price(product=new_product, price_recording=price_recording, seller=shop, price=product.prices[shop])
 			price.save()
+
+
+def update_big_query():
+	"""Update the Big Query database with the list of newly parsed product objects list"""
+	import os
+	from google.cloud import bigquery
+	credentials_path = os.path.dirname(os.path.abspath("updater.py")) + "/choco-big-query-dfd0bc97cb2a.json"
+	os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
+
+	client = bigquery.Client()
+	table_id = "choco-big-query.choco_bq.Product"
+	rows_to_insert = []
+
+	products = ProductModel.objects.all()
+	for product in products:
+		prices = {}
+		for price in product.prices.all():
+			prices[price.seller] = price.price
+		new_row = {
+			u"Title": product.title,
+			u"Category": product.category,
+			u"Prices": prices,
+			u"id": product.id,
+		}
+		rows_to_insert.append(new_row)
+
+	client.query("""
+		CREATE OR REPLACE TABLE `choco-big-query.choco_bq.Product`
+		AS SELECT * FROM `choco-big-query.choco_bq.Product` LIMIT 0;
+	""")
+	client.insert_rows_json(table_id, rows_to_insert, row_ids=[None]*len(rows_to_insert))
+
+
+def update_tensorflow():
+	"""Update the Tensorflow with the list of newly parsed product objects list"""
+	pass
