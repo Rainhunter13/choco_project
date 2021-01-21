@@ -12,6 +12,8 @@ from .consts import CATEGORIES
 from .consts import SHOP_CLASSES
 from .consts import SHOPS
 
+SIMILAR_PRODUCTS = {}
+
 
 def get_new_products():
 	"""Returns a list of products objects parsed from all shops and categories"""
@@ -30,6 +32,8 @@ def update_postgres():
 	"""Update the Postgresql database with the list of newly parsed product objects list"""
 	products = get_new_products()
 	for product in products:
+		if product.title in SIMILAR_PRODUCTS.keys():
+			product.title = SIMILAR_PRODUCTS[product.title]
 		same_products = ProductModel.objects.filter(title=product.title)
 		if len(same_products) > 0:
 			new_product = same_products.first()
@@ -49,7 +53,35 @@ def update_postgres():
 
 def unite_similar_products():
 	"""Unite similar products into one (inside Postgres)"""
-	return
+	import tensorflow_hub as hub
+	import numpy as np
+	import os
+
+	model_path = os.path.dirname(os.path.abspath("updater.py")) + "/encoder_model"
+	embed = hub.load(model_path)
+
+	titles = []
+	ids = []
+	for product in ProductModel.objects.all():
+		ids.append(product.id)
+		titles.append(product.title)
+
+	embeddings_list = embed(titles).numpy()
+	embeddings_dict = dict(zip(ids, embeddings_list))
+
+	for check_product in ProductModel.objects.all():
+		for another_product in ProductModel.objects.filter(category=check_product.category):
+			if check_product.id == another_product.id:
+				continue
+			if from_same_shop(check_product, another_product):
+				continue
+			a = embeddings_dict[check_product.id]
+			b = embeddings_dict[another_product.id]
+			cos_sim = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+			if cos_sim > 0.7:
+				SIMILAR_PRODUCTS[another_product.title] = check_product.title
+				merge(check_product, another_product)
+				break
 
 
 def update_big_query():
@@ -95,9 +127,8 @@ def update_big_query():
 	new_table = bigquery.Table(new_table_id, schema)
 	new_table = client.create_table(new_table)
 
+	# INSERT NEW ROWS
 	rows_to_insert = []
-	import os
-	from google.cloud import bigquery
 
 	products = ProductModel.objects.all()
 	for product in products:
@@ -112,8 +143,49 @@ def update_big_query():
 		}
 		rows_to_insert.append(new_row)
 
-	client.query("""
-		CREATE OR REPLACE TABLE `choco-big-query.choco_bq.Product`
-		AS SELECT * FROM `choco-big-query.choco_bq.Product` LIMIT 0;
-	""")
 	client.insert_rows_json(new_table_id, rows_to_insert, row_ids=[None]*len(rows_to_insert))
+
+
+def from_same_shop(check_product, another_product):
+	return False
+	check_product_shops = []
+	another_product_shops = []
+	for price in check_product.prices.all():
+		if price.price is not None:
+			check_product_shops.append(True)
+		else:
+			check_product_shops.append(False)
+	for price in another_product.prices.all():
+		if price.price is not None:
+			another_product_shops.append(True)
+		else:
+			another_product_shops.append(False)
+	for i in range(len(check_product_shops)):
+		if check_product_shops[i] and another_product_shops[i]:
+			return True
+	return False
+
+
+def merge(check_product, another_product):
+	return
+	check_product_shops = {}
+	another_product_shops = {}
+	for price in check_product.prices.all():
+		if price.price is not None:
+			check_product_shops[price.seller] = price.price
+		else:
+			check_product_shops[price.seller] = None
+	for price in another_product.prices.all():
+		if price.price is not None:
+			another_product_shops[price.seller] = price.price
+		else:
+			another_product_shops[price.seller] = None
+	check_product.prices.clear()
+	for shop in SHOPS:
+		if check_product_shops[shop] is not None:
+			price = Price(product=check_product, seller=shop, price=check_product_shops[shop])
+		else:
+			price = Price(product=check_product, seller=shop, price=another_product_shops[shop])
+		price.save()
+
+	another_product.delete()

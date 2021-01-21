@@ -44,7 +44,7 @@ services:
 
   celery_worker:
     build: .
-    command: celery -A choco_project worker --loglevel=INFO
+    command: celery -A choco_project worker --loglevel=INFO -f celery.logs
     volumes:
       - .:/code
     depends_on:
