@@ -8,6 +8,7 @@ from myapi.repository.models import Product
 from .serializers import ProductListSerializer, ProductSerializer, ProductOldPricesSerializer, MinMaxSerializer
 
 
+# ---------------------------------------------- PRODUCT VIEW SETS -----------------------------------------------------
 class ProductListViewSet(viewsets.ModelViewSet):
 	queryset = Product.objects.all().order_by('id')
 	serializer_class = ProductListSerializer
@@ -50,7 +51,7 @@ class VeterViewSet(viewsets.ModelViewSet):
 	http_method_names = ['get']
 
 
-# --------------------------------------------- CATEGORY VIEWS --------------------------------------------------------
+# ----------------------------------------------- CATEGORY VIEWS -------------------------------------------------------
 @api_view(['GET'])
 def category(request, cat):
 	data = Product.objects.filter(category=cat)

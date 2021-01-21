@@ -10,8 +10,9 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 @app.task
 def update():
-	"""Task for updating all databases based on new products parsed"""
+	"""Task that call other tasks ones an hour"""
 	update_postgres_task.apply()
+	unite_similar_products.apply()
 	update_big_query_task.apply()
 
 
@@ -23,12 +24,14 @@ def update_postgres_task():
 
 
 @app.task
+def unite_similar_products():
+	"""Task for uniting similar products into one (inside Postgres)"""
+	from myapi.services.updater import unite_similar_products
+	unite_similar_products()
+
+
+@app.task
 def update_big_query_task():
 	"""Task for updating Big Query database based on postgres"""
 	from myapi.services.updater import update_big_query
 	update_big_query()
-
-
-@app.task
-def unite_similar_products():
-	pass

@@ -30,9 +30,9 @@ def update_postgres():
 	"""Update the Postgresql database with the list of newly parsed product objects list"""
 	products = get_new_products()
 	for product in products:
-		similar_product = product.get_similar()
-		if similar_product is not None:
-			new_product = similar_product
+		same_products = ProductModel.objects.filter(title=product.title)
+		if len(same_products) > 0:
+			new_product = same_products.first()
 		else:
 			new_product = ProductModel(title=product.title, category=product.category)
 			new_product.save()
@@ -47,16 +47,57 @@ def update_postgres():
 			price.save()
 
 
+def unite_similar_products():
+	"""Unite similar products into one (inside Postgres)"""
+	return
+
+
 def update_big_query():
 	"""Update the Big Query database with the list of newly parsed product objects list"""
 	import os
 	from google.cloud import bigquery
-	credentials_path = os.path.dirname(os.path.abspath("updater.py")) + "/choco-big-query-dfd0bc97cb2a.json"
+	credentials_path = os.path.dirname(os.path.abspath("updater.py")) + "/choco-big-query-2-44bb243a8b97.json"
 	os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
+	schema = [
+		bigquery.SchemaField("Title", "STRING", mode="NULLABLE"),
+		bigquery.SchemaField("Category", "STRING", mode="NULLABLE"),
+		bigquery.SchemaField(
+			"Prices",
+			"RECORD",
+			mode="NULLABLE",
+			fields=[
+				bigquery.SchemaField("sulpak", "INTEGER", mode="NULLABLE"),
+				bigquery.SchemaField("technodom", "INTEGER", mode="NULLABLE"),
+				bigquery.SchemaField("mechta", "INTEGER", mode="NULLABLE"),
+				bigquery.SchemaField("veter", "INTEGER", mode="NULLABLE"),
+			]
+		),
+		bigquery.SchemaField("id", "INTEGER", mode="NULLABLE")
+	]
+
 	client = bigquery.Client()
-	table_id = "choco-big-query.choco_bq.Product"
+	dataset_id = "choco-big-query-2.products_dataset"
+	old_table_id = ""
+	new_table_id = ""
+
+	for table in client.list_tables(dataset_id):
+		table_id = dataset_id + "." + table.table_id
+		old_table_id = table_id
+		table_id = table_id.split("__")[0]
+		new_table_id = table_id + "__" + datetime.now().strftime("%d-%m-%Y--%H-%M-%S")
+		break
+
+	# DELETE OLD TABLE
+	client.delete_table(old_table_id, not_found_ok=True)
+
+	# CREATE CREATE TABLE
+	new_table = bigquery.Table(new_table_id, schema)
+	new_table = client.create_table(new_table)
+
 	rows_to_insert = []
+	import os
+	from google.cloud import bigquery
 
 	products = ProductModel.objects.all()
 	for product in products:
@@ -75,9 +116,4 @@ def update_big_query():
 		CREATE OR REPLACE TABLE `choco-big-query.choco_bq.Product`
 		AS SELECT * FROM `choco-big-query.choco_bq.Product` LIMIT 0;
 	""")
-	client.insert_rows_json(table_id, rows_to_insert, row_ids=[None]*len(rows_to_insert))
-
-
-def update_tensorflow():
-	"""Update the Tensorflow with the list of newly parsed product objects list"""
-	pass
+	client.insert_rows_json(new_table_id, rows_to_insert, row_ids=[None]*len(rows_to_insert))
