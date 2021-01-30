@@ -28,7 +28,7 @@ git clone https://github.com/Rainhunter13/choco_project
 2. Set project configurations:  <br/>
   2.1. Create PostgreSQL database and define related settings in the /choco_project/settings.py  <br/>
   2.2. Create config.py file in the root directory and define 'SECRET_KEY' (Django project key) and 'db_password' variables (PostgresQL database password)  <br/>
-  2.3. Put the BigQuery credentials *file_name*.json file in the root directory  <br/>
+  2.3. Put the BigQuery credentials *file_name*.json file in the root directory and set a path to it in the updater.py  <br/>
   2.4. Download and put the encoder_model folder in the root directory - Universal Sentense Encoding model which could be downloaded from https://tfhub.dev/google/universal-sentence-encoder/4  <br/>
 
 3. Run docker-compose:
