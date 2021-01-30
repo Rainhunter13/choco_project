@@ -1,4 +1,4 @@
-from myapi.repository.models import Product as ProductModel
+from myapi.models import Product as ProductModel
 
 
 def find_min_price(category):

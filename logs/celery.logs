@@ -1,0 +1,401 @@
+[2021-01-22 04:37:04,291: INFO/MainProcess] Connected to redis://redis:6379/0
+[2021-01-22 04:37:04,322: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-22 04:37:05,345: INFO/MainProcess] mingle: all alone
+[2021-01-22 04:37:05,359: WARNING/MainProcess] /usr/local/lib/python3.6/site-packages/celery/fixups/django.py:204: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  leak, never use this setting in production environments!''')
+
+[2021-01-22 04:37:05,359: INFO/MainProcess] celery@1cee6d77e6a4 ready.
+[2021-01-22 04:37:05,389: INFO/MainProcess] Received task: choco_project.celery.update[903fd6d2-f0e1-46b8-b754-354bae19f060]  
+[2021-01-22 04:39:10,222: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[320e7ef5-23ee-44fe-b160-735ed6f131c6] succeeded in 124.8306298959942s: None
+[2021-01-22 04:47:11,521: INFO/MainProcess] Received task: choco_project.celery.update[cfae3edc-bedc-4904-956a-6b776ca0150d]  
+[2021-01-22 04:50:22,684: ERROR/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[f860ef4a-3c92-44df-ab6e-bc91df299631] raised unexpected: IndexError('list index out of range',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 76, in unite_similar_products
+    if from_same_shop(check_product, another_product):
+  File "/code/myapi/services/updater.py", line 163, in from_same_shop
+    if check_product_shops[i] and another_product_shops[i]:
+IndexError: list index out of range
+[2021-01-22 04:52:36,376: INFO/ForkPoolWorker-7] Task choco_project.celery.update_postgres_task[69453509-7ed6-48ef-9587-26a047cb7ff2] succeeded in 313.2043941860029s: None
+[2021-01-22 05:02:20,007: INFO/MainProcess] Received task: choco_project.celery.update[0b80ca73-1236-4474-88de-795274c85fc7]  
+[2021-01-22 05:03:43,937: ERROR/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[1ab2a41b-c77f-418f-bedc-15c03f353158] raised unexpected: GoogleAPICallError('POST https://bigquery.googleapis.com/bigquery/v2/projects/choco-big-query-2/datasets/products_dataset/tables/Product__22-01-2021--04-51-49/insertAll?prettyPrint=false: <!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">\n  <title>Error 408 (Request Timeout)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>408.</b> <ins>That’s an error.</ins>\n  <p>Your client has taken too long to issue its request.  <ins>That’s all we know.</ins>\n',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 37, in update_big_query_task
+    update_big_query()
+  File "/code/myapi/services/updater.py", line 146, in update_big_query
+    client.insert_rows_json(new_table_id, rows_to_insert, row_ids=[None]*len(rows_to_insert))
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/bigquery/client.py", line 3104, in insert_rows_json
+    timeout=timeout,
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/bigquery/client.py", line 643, in _call_api
+    return call()
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/retry.py", line 286, in retry_wrapped_func
+    on_error=on_error,
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/retry.py", line 184, in retry_target
+    return target()
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/_http.py", line 438, in api_request
+    raise exceptions.from_http_response(response)
+google.api_core.exceptions.GoogleAPICallError: 408 POST https://bigquery.googleapis.com/bigquery/v2/projects/choco-big-query-2/datasets/products_dataset/tables/Product__22-01-2021--04-51-49/insertAll?prettyPrint=false: <!DOCTYPE html>
+<html lang=en>
+  <meta charset=utf-8>
+  <meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+  <title>Error 408 (Request Timeout)!!1</title>
+  <style>
+    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}
+  </style>
+  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>
+  <p><b>408.</b> <ins>That’s an error.</ins>
+  <p>Your client has taken too long to issue its request.  <ins>That’s all we know.</ins>
+
+[2021-01-22 05:03:49,157: INFO/ForkPoolWorker-6] Task choco_project.celery.update[903fd6d2-f0e1-46b8-b754-354bae19f060] succeeded in 1604.2649264190113s: None
+[2021-01-22 05:07:12,016: INFO/MainProcess] Received task: choco_project.celery.update[8d333023-5a80-4002-aa76-d167ff6ce6a7]  
+[2021-01-22 05:09:12,796: ERROR/ForkPoolWorker-7] Task choco_project.celery.unite_similar_products[fe50c728-97c9-4400-9fb3-0ce56a921cd0] raised unexpected: IndexError('list index out of range',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 76, in unite_similar_products
+    if from_same_shop(check_product, another_product):
+  File "/code/myapi/services/updater.py", line 163, in from_same_shop
+    if check_product_shops[i] and another_product_shops[i]:
+IndexError: list index out of range
+[2021-01-22 05:09:35,389: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[e328e3c1-0334-4554-aef9-132d43bc7079] succeeded in 145.43960253000841s: None
+[2021-01-22 05:09:38,186: INFO/ForkPoolWorker-8] Task choco_project.celery.update_postgres_task[cf9810d5-32d4-45d4-8b92-f0c775a355b6] succeeded in 398.6522776070051s: None
+[2021-01-22 05:09:51,210: INFO/ForkPoolWorker-7] Task choco_project.celery.update_big_query_task[f626a2d1-1f76-49b0-a841-2685cde8bad2] succeeded in 38.6087937340053s: None
+[2021-01-22 05:09:51,212: INFO/ForkPoolWorker-7] Task choco_project.celery.update[cfae3edc-bedc-4904-956a-6b776ca0150d] succeeded in 1350.883724801999s: None
+[2021-01-22 05:10:27,450: WARNING/ForkPoolWorker-6] 5 out of the last 5 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996a15df28> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:10:39,330: ERROR/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[2f8b6100-071c-4166-a047-0f7b48be3b51] raised unexpected: KeyError('sulpak',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 83, in unite_similar_products
+    merge(check_product, another_product)
+  File "/code/myapi/services/updater.py", line 183, in merge
+    if check_product_shops[shop] is not None:
+KeyError: 'sulpak'
+[2021-01-22 05:10:39,407: WARNING/ForkPoolWorker-6] 6 out of the last 6 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9968f35488> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:11:00,644: ERROR/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[93630ce2-6693-4693-8338-f38a2a2c8c6c] raised unexpected: TransportError(ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',)),),)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 706, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 445, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 440, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/local/lib/python3.6/http/client.py", line 1346, in getresponse
+    response.begin()
+  File "/usr/local/lib/python3.6/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/usr/local/lib/python3.6/http/client.py", line 276, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 756, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "/usr/local/lib/python3.6/site-packages/urllib3/util/retry.py", line 531, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/packages/six.py", line 734, in reraise
+    raise value.with_traceback(tb)
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 706, in urlopen
+    chunked=chunked,
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 445, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/local/lib/python3.6/site-packages/urllib3/connectionpool.py", line 440, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/local/lib/python3.6/http/client.py", line 1346, in getresponse
+    response.begin()
+  File "/usr/local/lib/python3.6/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/usr/local/lib/python3.6/http/client.py", line 276, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/google/auth/transport/requests.py", line 183, in __call__
+    method, url, data=body, headers=headers, timeout=timeout, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 542, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/sessions.py", line 655, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/requests/adapters.py", line 498, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 37, in update_big_query_task
+    update_big_query()
+  File "/code/myapi/services/updater.py", line 116, in update_big_query
+    for table in client.list_tables(dataset_id):
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/page_iterator.py", line 212, in _items_iter
+    for page in self._page_iter(increment=False):
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/page_iterator.py", line 243, in _page_iter
+    page = self._next_page()
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/page_iterator.py", line 369, in _next_page
+    response = self._get_next_page_response()
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/page_iterator.py", line 419, in _get_next_page_response
+    method=self._HTTP_METHOD, path=self.path, query_params=params
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/bigquery/client.py", line 1339, in api_request
+    **kwargs,
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/bigquery/client.py", line 643, in _call_api
+    return call()
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/retry.py", line 286, in retry_wrapped_func
+    on_error=on_error,
+  File "/usr/local/lib/python3.6/site-packages/google/api_core/retry.py", line 184, in retry_target
+    return target()
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/_http.py", line 434, in api_request
+    timeout=timeout,
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/_http.py", line 292, in _make_request
+    method, url, headers, data, target_object, timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/google/cloud/_http.py", line 330, in _do_request
+    url=url, method=method, headers=headers, data=data, timeout=timeout
+  File "/usr/local/lib/python3.6/site-packages/google/auth/transport/requests.py", line 460, in request
+    self.credentials.before_request(auth_request, method, url, request_headers)
+  File "/usr/local/lib/python3.6/site-packages/google/auth/credentials.py", line 133, in before_request
+    self.refresh(request)
+  File "/usr/local/lib/python3.6/site-packages/google/oauth2/service_account.py", line 361, in refresh
+    access_token, expiry, _ = _client.jwt_grant(request, self._token_uri, assertion)
+  File "/usr/local/lib/python3.6/site-packages/google/oauth2/_client.py", line 153, in jwt_grant
+    response_data = _token_endpoint_request(request, token_uri, body)
+  File "/usr/local/lib/python3.6/site-packages/google/oauth2/_client.py", line 105, in _token_endpoint_request
+    response = request(method="POST", url=token_uri, headers=headers, body=body)
+  File "/usr/local/lib/python3.6/site-packages/google/auth/transport/requests.py", line 188, in __call__
+    six.raise_from(new_exc, caught_exc)
+  File "<string>", line 3, in raise_from
+google.auth.exceptions.TransportError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response',))
+[2021-01-22 05:11:00,645: INFO/ForkPoolWorker-6] Task choco_project.celery.update[8d333023-5a80-4002-aa76-d167ff6ce6a7] succeeded in 228.53183332300978s: None
+[2021-01-22 05:15:57,928: ERROR/ForkPoolWorker-8] Task choco_project.celery.unite_similar_products[7c89a88e-0c4a-460c-adf4-47da0c134c05] raised unexpected: KeyError('sulpak',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 83, in unite_similar_products
+    merge(check_product, another_product)
+  File "/code/myapi/services/updater.py", line 183, in merge
+    if check_product_shops[shop] is not None:
+KeyError: 'sulpak'
+[2021-01-22 05:16:10,101: INFO/ForkPoolWorker-8] Task choco_project.celery.update_big_query_task[9f8f8aab-fca9-4732-8350-0c2b345966fb] succeeded in 11.990066618993296s: None
+[2021-01-22 05:16:10,103: INFO/ForkPoolWorker-8] Task choco_project.celery.update[0b80ca73-1236-4474-88de-795274c85fc7] succeeded in 785.2523331590055s: None
+[2021-01-22 05:17:28,070: INFO/MainProcess] Received task: choco_project.celery.update[cf2c68f4-5ee0-4dff-b00b-6704297c0b5c]  
+[2021-01-22 05:19:35,327: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[e56df09d-b088-44d4-b7d4-0b70f699f969] succeeded in 127.2551916079974s: None
+[2021-01-22 05:20:11,632: WARNING/ForkPoolWorker-6] 7 out of the last 7 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996a09f378> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:20:15,554: WARNING/ForkPoolWorker-6] 8 out of the last 8 calls to <function recreate_function.<locals>.restored_function_body at 0x7f99a4120840> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:20:22,043: ERROR/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[5fe10ee8-20e7-4d07-b652-3eda078fbfa0] raised unexpected: KeyError('sulpak',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 83, in unite_similar_products
+    merge(check_product, another_product)
+  File "/code/myapi/services/updater.py", line 183, in merge
+    if check_product_shops[shop] is not None:
+KeyError: 'sulpak'
+[2021-01-22 05:20:22,149: WARNING/ForkPoolWorker-6] 9 out of the last 9 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996b18b7b8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:20:31,482: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[546dd3fc-6b3b-4aaa-be7d-14481f61acab] succeeded in 9.198574344001827s: None
+[2021-01-22 05:20:31,483: INFO/ForkPoolWorker-6] Task choco_project.celery.update[cf2c68f4-5ee0-4dff-b00b-6704297c0b5c] succeeded in 183.41148203599732s: None
+[2021-01-22 05:27:29,395: INFO/MainProcess] Received task: choco_project.celery.update[a4fa09b5-6f17-44e5-a554-f79cceef8745]  
+[2021-01-22 05:28:31,290: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[d07449b3-0f94-49ae-9c12-68c8b827cbf9] succeeded in 61.89121575199533s: None
+[2021-01-22 05:29:24,824: WARNING/ForkPoolWorker-6] 10 out of the last 10 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996aa907b8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:29:26,730: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996a594b70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:29:48,216: ERROR/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[93cd5807-f232-4e51-bd24-3e1ca6842f14] raised unexpected: KeyError('sulpak',)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 405, in trace_task
+    R = retval = fun(*args, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/celery/app/trace.py", line 697, in __protected_call__
+    return self.run(*args, **kwargs)
+  File "/code/choco_project/celery.py", line 30, in unite_similar_products
+    unite_similar_products()
+  File "/code/myapi/services/updater.py", line 83, in unite_similar_products
+    merge(check_product, another_product)
+  File "/code/myapi/services/updater.py", line 183, in merge
+    for shop in SHOPS:
+KeyError: 'sulpak'
+[2021-01-22 05:29:48,301: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f996a594730> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:29:57,197: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[f3d0fbfe-8638-4b2e-8ed3-23fa27864ed0] succeeded in 8.764675052007078s: None
+[2021-01-22 05:29:57,199: INFO/ForkPoolWorker-6] Task choco_project.celery.update[a4fa09b5-6f17-44e5-a554-f79cceef8745] succeeded in 147.8006166460109s: None
+[2021-01-22 05:32:20,511: INFO/MainProcess] Connected to redis://redis:6379/0
+[2021-01-22 05:32:20,546: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-22 05:32:21,569: INFO/MainProcess] mingle: all alone
+[2021-01-22 05:32:21,634: WARNING/MainProcess] /usr/local/lib/python3.6/site-packages/celery/fixups/django.py:204: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  leak, never use this setting in production environments!''')
+
+[2021-01-22 05:32:21,634: INFO/MainProcess] celery@1cee6d77e6a4 ready.
+[2021-01-22 05:37:28,428: INFO/MainProcess] Received task: choco_project.celery.update[7c763015-9435-4ac2-b859-0868a475fb29]  
+[2021-01-22 05:38:30,693: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[f0fdfd35-4528-4591-b690-9b52abbb4ae5] succeeded in 62.262802230994566s: None
+[2021-01-22 05:39:20,590: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[7eb04222-2ed5-405a-866f-162255f52528] succeeded in 49.89445349999005s: None
+[2021-01-22 05:39:34,965: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[e2f1fb54-4830-4e0f-b804-d757b8dc1de5] succeeded in 13.772982069989666s: None
+[2021-01-22 05:39:34,968: INFO/ForkPoolWorker-6] Task choco_project.celery.update[7c763015-9435-4ac2-b859-0868a475fb29] succeeded in 126.53831155599619s: None
+[2021-01-22 05:47:28,490: INFO/MainProcess] Received task: choco_project.celery.update[cbff5243-17f2-47bf-87cb-453f798bdecf]  
+[2021-01-22 05:48:30,721: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[c3e1d731-f3eb-4a2a-848e-444c4d4eb0fb] succeeded in 62.11772692500381s: None
+[2021-01-22 05:49:52,743: WARNING/ForkPoolWorker-6] 5 out of the last 5 calls to <function recreate_function.<locals>.restored_function_body at 0x7f6b98080378> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 05:49:52,973: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[2b4d5806-8559-48ab-a34d-dbbce5b8d2a0] succeeded in 82.25009315699572s: None
+[2021-01-22 05:50:01,776: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[af50303a-e208-4888-8f7a-3d012e1ec635] succeeded in 8.80247442399559s: None
+[2021-01-22 05:50:01,777: INFO/ForkPoolWorker-6] Task choco_project.celery.update[cbff5243-17f2-47bf-87cb-453f798bdecf] succeeded in 153.17484834800416s: None
+[2021-01-22 05:54:46,612: INFO/MainProcess] Connected to redis://redis:6379/0
+[2021-01-22 05:54:46,644: INFO/MainProcess] mingle: searching for neighbors
+[2021-01-22 05:54:47,669: INFO/MainProcess] mingle: all alone
+[2021-01-22 05:54:47,686: WARNING/MainProcess] /usr/local/lib/python3.6/site-packages/celery/fixups/django.py:204: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  leak, never use this setting in production environments!''')
+
+[2021-01-22 05:54:47,686: INFO/MainProcess] celery@1cee6d77e6a4 ready.
+[2021-01-22 06:17:28,412: INFO/MainProcess] Received task: choco_project.celery.update[883b4949-0a40-4df1-a0e1-910bbba0386f]  
+[2021-01-22 06:18:22,810: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[12c69c0c-0b06-4e79-8dcb-b6c907d433f9] succeeded in 54.39596844599873s: None
+[2021-01-22 06:19:17,309: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[34f87046-f93c-44b5-a13d-7ff5949d5f54] succeeded in 54.49823238000681s: None
+[2021-01-22 06:19:32,274: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[63f42c47-f633-4f20-ad84-a33435f91cd5] succeeded in 14.915442162993713s: None
+[2021-01-22 06:19:32,314: INFO/ForkPoolWorker-6] Task choco_project.celery.update[883b4949-0a40-4df1-a0e1-910bbba0386f] succeeded in 123.90061114999116s: None
+[2021-01-22 06:47:28,420: INFO/MainProcess] Received task: choco_project.celery.update[1f9599e8-1771-4fca-9f5d-1e52916f3e3d]  
+[2021-01-22 06:48:37,415: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[50982fa0-25fa-43e2-91db-76b9f36e3057] succeeded in 68.98875734000467s: None
+[2021-01-22 06:50:02,515: WARNING/ForkPoolWorker-6] 5 out of the last 5 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c363ec378> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 06:50:02,811: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[a94b80ae-25c8-4c44-a853-57d558aaa917] succeeded in 85.3955833499931s: None
+[2021-01-22 06:50:12,802: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[ae02ff79-b311-4e28-9378-46121023159a] succeeded in 9.990499874009402s: None
+[2021-01-22 06:50:12,804: INFO/ForkPoolWorker-6] Task choco_project.celery.update[1f9599e8-1771-4fca-9f5d-1e52916f3e3d] succeeded in 164.37777401499625s: None
+[2021-01-22 07:17:28,653: INFO/MainProcess] Received task: choco_project.celery.update[28b6cfc1-9477-43d5-ab5d-52c8e1c07447]  
+[2021-01-22 07:19:18,053: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[54be9562-de25-4093-9ce0-94a69d410b98] succeeded in 109.39595046099566s: None
+[2021-01-22 07:21:07,754: WARNING/ForkPoolWorker-6] 6 out of the last 6 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c35f3d620> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:21:13,167: WARNING/ForkPoolWorker-6] 7 out of the last 7 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c1ff7fae8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:21:19,170: WARNING/ForkPoolWorker-6] 8 out of the last 8 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c35aa4d08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:21:19,388: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[83012529-bb79-4362-8dd7-67c54691c084] succeeded in 121.33417024200025s: None
+[2021-01-22 07:21:29,069: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[0ea9a956-f2e7-4966-827d-f5401e94c0df] succeeded in 9.680360564001603s: None
+[2021-01-22 07:21:29,070: INFO/ForkPoolWorker-6] Task choco_project.celery.update[28b6cfc1-9477-43d5-ab5d-52c8e1c07447] succeeded in 240.4141093549988s: None
+[2021-01-22 07:47:29,942: INFO/MainProcess] Received task: choco_project.celery.update[185a3e66-3ad6-4d58-9803-090652470a2f]  
+[2021-01-22 07:50:33,118: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[bf82d9b5-3ce9-43d9-9330-e85bfee4ceab] succeeded in 183.17497072600236s: None
+[2021-01-22 07:52:07,196: WARNING/ForkPoolWorker-6] 9 out of the last 9 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c7c377f28> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:52:08,026: WARNING/ForkPoolWorker-6] 10 out of the last 10 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c362512f0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:52:12,483: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c36251d08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 07:52:12,604: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[f948d41f-daa7-4110-982a-92221b7239f2] succeeded in 99.48486764999689s: None
+[2021-01-22 07:52:22,633: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[191fec4e-7987-42d1-9436-1e06b3234b7f] succeeded in 10.028474957012804s: None
+[2021-01-22 07:52:22,635: INFO/ForkPoolWorker-6] Task choco_project.celery.update[185a3e66-3ad6-4d58-9803-090652470a2f] succeeded in 292.6917825200071s: None
+[2021-01-22 08:17:29,110: INFO/MainProcess] Received task: choco_project.celery.update[c6927097-1497-4b04-8b13-7cc93e98241a]  
+[2021-01-22 08:18:36,006: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[37554204-97cc-4253-91dc-49870dd1d868] succeeded in 66.8934223010001s: None
+[2021-01-22 08:20:02,461: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9d266a8158> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:20:03,756: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24f93950> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:20:08,258: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24f93a60> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:20:08,400: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[1711d225-fa0e-4f98-9941-f35ec9ae5ec8] succeeded in 92.39239265400101s: None
+[2021-01-22 08:20:17,789: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[c870d08e-4cf8-43bb-aaf5-4ea07ad49150] succeeded in 9.38803805000498s: None
+[2021-01-22 08:20:17,790: INFO/ForkPoolWorker-6] Task choco_project.celery.update[c6927097-1497-4b04-8b13-7cc93e98241a] succeeded in 168.67892323200067s: None
+[2021-01-22 08:47:29,221: INFO/MainProcess] Received task: choco_project.celery.update[18a24e9d-4a07-40f8-aba1-62118620cf65]  
+[2021-01-22 08:48:28,844: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[f8b035f1-299d-413f-8a64-6b54a371725c] succeeded in 59.62191080400953s: None
+[2021-01-22 08:49:06,607: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c35cec730> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:49:07,355: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c1fe38950> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:49:11,595: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c36443f28> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 08:49:11,717: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[64029299-1fc4-4103-9737-5de263ef3a9f] succeeded in 42.87102595702163s: None
+[2021-01-22 08:49:21,093: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[03245bf5-c6af-403f-b1c0-0bfe00ddbef1] succeeded in 9.374459642014699s: None
+[2021-01-22 08:49:21,094: INFO/ForkPoolWorker-6] Task choco_project.celery.update[18a24e9d-4a07-40f8-aba1-62118620cf65] succeeded in 111.87228192400653s: None
+[2021-01-22 09:17:29,312: INFO/MainProcess] Received task: choco_project.celery.update[49576ff7-0fd4-4b03-b739-8c10e3ec0ed8]  
+[2021-01-22 09:18:30,445: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[1466e35d-7e3a-43e0-be58-cd494fd7361a] succeeded in 61.13091303501278s: None
+[2021-01-22 09:18:55,973: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c240f12f0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:18:56,439: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c2402ed90> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:19:00,612: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c2402e6a8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:19:00,737: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[2b9496fa-57ac-41e2-9cd5-1c3c8c26352f] succeeded in 30.29050674699829s: None
+[2021-01-22 09:19:09,582: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[9520271c-41cb-4bd8-8bd9-72e777f09844] succeeded in 8.843331662006676s: None
+[2021-01-22 09:19:09,584: INFO/ForkPoolWorker-6] Task choco_project.celery.update[49576ff7-0fd4-4b03-b739-8c10e3ec0ed8] succeeded in 100.27001168500283s: None
+[2021-01-22 09:47:29,375: INFO/MainProcess] Received task: choco_project.celery.update[e38f81da-dce9-4614-9bad-53fa878f3298]  
+[2021-01-22 09:48:51,132: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[a4a9541f-bc57-47ab-8d09-5b015f032f43] succeeded in 81.75414157900377s: None
+[2021-01-22 09:49:06,924: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c2402e598> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:49:07,208: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c2402e730> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:49:11,304: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24707f28> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 09:49:11,428: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[6d99f126-e3b5-40b4-9423-cf4a2aa37c30] succeeded in 20.29433155999868s: None
+[2021-01-22 09:49:22,065: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[e9a3be4a-c077-451b-a184-da195c61bf7f] succeeded in 10.63556078900001s: None
+[2021-01-22 09:49:22,067: INFO/ForkPoolWorker-6] Task choco_project.celery.update[e38f81da-dce9-4614-9bad-53fa878f3298] succeeded in 112.68975184098235s: None
+[2021-01-22 10:17:29,477: INFO/MainProcess] Received task: choco_project.celery.update[fd17d325-9cc8-496b-99d4-a6cac3a6a58a]  
+[2021-01-22 10:18:52,533: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[de005d42-2a94-4a8b-b5e9-07aa1e4390e7] succeeded in 83.05284640501486s: None
+[2021-01-22 10:18:59,545: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c3546f950> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:18:59,825: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c35a660d0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:19:03,901: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c360d9b70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:19:04,029: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[1c8ae8c7-1644-4ed7-9c3a-4ea2d60154d1] succeeded in 11.494573678995948s: None
+[2021-01-22 10:19:11,352: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[0ece970e-9e5f-44da-b67b-5a38a8ee6aa4] succeeded in 7.32070332398871s: None
+[2021-01-22 10:19:11,353: INFO/ForkPoolWorker-6] Task choco_project.celery.update[fd17d325-9cc8-496b-99d4-a6cac3a6a58a] succeeded in 101.87420950300293s: None
+[2021-01-22 10:47:29,533: INFO/MainProcess] Received task: choco_project.celery.update[d57872cf-2234-4bac-99cc-8e382084d22a]  
+[2021-01-22 10:48:32,115: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[14aabde0-cacc-4f40-8594-b14c62dbad63] succeeded in 62.57887919401401s: None
+[2021-01-22 10:48:37,330: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c356b8f28> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:48:37,610: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c356b82f0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:48:41,695: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c356b87b8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 10:48:41,824: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[88f4b458-ef5c-48c6-abb0-9ca8cd4da807] succeeded in 9.708169267018093s: None
+[2021-01-22 10:48:49,733: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[4310c2bf-1161-4d27-a924-fca6dc83c20b] succeeded in 7.906303917989135s: None
+[2021-01-22 10:48:49,734: INFO/ForkPoolWorker-6] Task choco_project.celery.update[d57872cf-2234-4bac-99cc-8e382084d22a] succeeded in 80.19930902699707s: None
+[2021-01-22 11:17:29,756: INFO/MainProcess] Received task: choco_project.celery.update[16c5cf86-601a-4b3c-ba64-af5e0d3fc5d0]  
+[2021-01-22 11:20:00,155: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[9e20d26f-5493-446a-a498-b44c4c4318f1] succeeded in 150.39740239299135s: None
+[2021-01-22 11:21:41,484: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24773d08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:21:42,578: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24961d08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:21:46,906: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c7c147400> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:21:47,042: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[558cf5f2-6fe1-4f38-a86c-8d46e8f941b4] succeeded in 106.88464387701242s: None
+[2021-01-22 11:21:57,886: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[e6f1b323-aae0-4dfa-b3be-7dfae7bdec65] succeeded in 10.841784371994436s: None
+[2021-01-22 11:21:57,889: INFO/ForkPoolWorker-6] Task choco_project.celery.update[16c5cf86-601a-4b3c-ba64-af5e0d3fc5d0] succeeded in 268.1315744369931s: None
+[2021-01-22 11:47:29,866: INFO/MainProcess] Received task: choco_project.celery.update[52bc42d4-ea15-4061-8362-bcf7fdfa7222]  
+[2021-01-22 11:48:32,372: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[c9fb666f-6054-4480-96d1-a46d10a414f6] succeeded in 62.502448319020914s: None
+[2021-01-22 11:50:25,909: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24c5bd08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:50:27,240: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24e7bea0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:50:31,734: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24c5b378> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 11:50:31,895: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[77066c77-6b5b-4f6e-872a-1423cdc22f5f] succeeded in 119.52116840300732s: None
+[2021-01-22 11:50:47,652: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[6884dfaa-0097-4c9b-9c5d-ac36a601675f] succeeded in 15.754384501982713s: None
+[2021-01-22 11:50:47,653: INFO/ForkPoolWorker-6] Task choco_project.celery.update[52bc42d4-ea15-4061-8362-bcf7fdfa7222] succeeded in 197.78461591200903s: None
+[2021-01-22 12:17:30,006: INFO/MainProcess] Received task: choco_project.celery.update[98b0965e-eff1-4f5f-ac06-cd3672c4f1cc]  
+[2021-01-22 12:18:34,783: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[735aa995-b0b2-4207-b2b7-0bb289d62a54] succeeded in 64.77455427599489s: None
+[2021-01-22 12:20:50,501: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c1fe01ea0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:20:54,983: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c1fe01048> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:21:01,430: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c1fe01510> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:21:01,576: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[775ab34f-b03f-40b5-823a-788da1b86eb0] succeeded in 146.79132698700414s: None
+[2021-01-22 12:21:14,588: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[97564ee1-d19b-46e3-990c-5a1b95fbc4d2] succeeded in 13.009271820017602s: None
+[2021-01-22 12:21:14,591: INFO/ForkPoolWorker-6] Task choco_project.celery.update[98b0965e-eff1-4f5f-ac06-cd3672c4f1cc] succeeded in 224.5838310800027s: None
+[2021-01-22 12:47:31,491: INFO/MainProcess] Received task: choco_project.celery.update[487e7aa6-17f8-49af-b5cb-ee0ca1b40e16]  
+[2021-01-22 12:48:53,906: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[d8b4e237-3fa6-4868-a4c6-dac9b3c25c18] succeeded in 82.41091699901153s: None
+[2021-01-22 12:51:16,583: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24217b70> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:51:19,567: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24794d08> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:51:24,724: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c242171e0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 12:51:24,869: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[f3f4497f-ad93-4750-8ef4-39f94c2e52e9] succeeded in 150.9618217739917s: None
+[2021-01-22 12:51:45,150: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[c6f13872-3290-43b3-ae77-116de68c86c2] succeeded in 20.27871223000693s: None
+[2021-01-22 12:51:45,154: INFO/ForkPoolWorker-6] Task choco_project.celery.update[487e7aa6-17f8-49af-b5cb-ee0ca1b40e16] succeeded in 253.65991940998356s: None
+[2021-01-22 13:17:30,759: INFO/MainProcess] Received task: choco_project.celery.update[de38e01f-9cfb-4bef-9877-7590c6db257c]  
+[2021-01-22 13:19:14,517: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[270e8b71-102e-4f70-b6f1-22f60a9478a3] succeeded in 103.75464552800986s: None
+[2021-01-22 13:21:05,647: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c2484cc80> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:21:06,828: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c7c69e9d8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:21:12,248: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c7c69e1e0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:21:12,395: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[6e116e61-0d87-4e24-abcb-f95e985edf01] succeeded in 117.87683147599455s: None
+[2021-01-22 13:21:21,631: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[648a2a8d-7d9e-4987-bfbb-b7f7ad521387] succeeded in 9.233234884013655s: None
+[2021-01-22 13:21:21,633: INFO/ForkPoolWorker-6] Task choco_project.celery.update[de38e01f-9cfb-4bef-9877-7590c6db257c] succeeded in 230.87153647100786s: None
+[2021-01-22 13:47:30,509: INFO/MainProcess] Received task: choco_project.celery.update[98d94a09-4bfb-4c3e-ac2c-a64c820240f2]  
+[2021-01-22 13:48:41,814: INFO/ForkPoolWorker-6] Task choco_project.celery.update_postgres_task[b059f979-b0a7-4f34-a536-88b675cb6f4e] succeeded in 71.30160427000374s: None
+[2021-01-22 13:48:59,718: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9d267509d8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:49:00,049: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c246059d8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:49:04,425: WARNING/ForkPoolWorker-6] 11 out of the last 11 calls to <function recreate_function.<locals>.restored_function_body at 0x7f9c24605ae8> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has experimental_relax_shapes=True option that relaxes argument shapes that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+[2021-01-22 13:49:04,570: INFO/ForkPoolWorker-6] Task choco_project.celery.unite_similar_products[985cbe2b-31be-4752-b5f4-591746874430] succeeded in 22.754602836997947s: None
+[2021-01-22 13:49:14,143: INFO/ForkPoolWorker-6] Task choco_project.celery.update_big_query_task[eecf7b87-7eec-4f64-99af-5970a8da6f01] succeeded in 9.57290957099758s: None
+[2021-01-22 13:49:14,146: INFO/ForkPoolWorker-6] Task choco_project.celery.update[98d94a09-4bfb-4c3e-ac2c-a64c820240f2] succeeded in 103.635007778008s: None

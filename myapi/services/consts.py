@@ -1,5 +1,4 @@
-CATEGORIES = ['laptop']  # FOR TESTING ONLY
-# CATEGORIES = ['laptop', 'tablet', 'monitor', 'eBook', 'fridge', 'freezer', 'electric_stoves', 'multicooker', 'meet_grinder', 'microwave']
+CATEGORIES = ['laptop', 'tablet', 'monitor', 'eBook', 'fridge', 'freezer', 'electric_stoves', 'multicooker', 'meet_grinder', 'microwave']
 SHOPS = ['sulpak', 'technodom', 'mechta', 'veter' ]
 SHOP_CLASSES = ['Sulpak', 'Technodom', 'Mechta', 'Veter']
 

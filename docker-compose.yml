@@ -2,20 +2,6 @@ version: "3.9"
 
 services:
 
-#  hub:
-#    image: selenium/hub
-#    ports:
-#    - '4444:4444'
-#
-#  chrome:
-#    image: selenium/node-chrome
-#    volumes:
-#      - .:/code
-#    depends_on:
-#      - hub
-#    environment:
-#      HUB_HOST: hub
-
   redis:
     image: redis
     ports:
@@ -44,7 +30,7 @@ services:
 
   celery_worker:
     build: .
-    command: celery -A choco_project worker --loglevel=INFO -f celery.logs
+    command: celery -A choco_project worker --loglevel=INFO -f logs/celery.logs
     volumes:
       - .:/code
     depends_on:

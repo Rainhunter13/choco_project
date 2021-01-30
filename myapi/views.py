@@ -1,10 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.decorators import action
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from myapi.services.product_object import find_min_price, find_max_price
-from myapi.repository.models import Product
+from myapi.models import Product
 from .serializers import ProductListSerializer, ProductSerializer, ProductOldPricesSerializer, MinMaxSerializer
 
 

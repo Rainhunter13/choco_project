@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'myapi.repository.apps.MyapiConfig',
+    'myapi.apps.MyapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,6 +139,6 @@ CELERY_IMPORTS = ("celery", )
 CELERY_BEAT_SCHEDULE = {
     'update-every-hour': {
         'task': 'choco_project.celery.update',
-        'schedule': 1800.0,
+        'schedule': 3600.0,
     },
 }

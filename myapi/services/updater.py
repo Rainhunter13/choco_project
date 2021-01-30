@@ -1,13 +1,9 @@
 from datetime import datetime
 
-from myapi.repository.models import Product as ProductModel
-from myapi.repository.models import PriceRecording
-from myapi.repository.models import Price
+from myapi.models import Product as ProductModel
+from myapi.models import PriceRecording
+from myapi.models import Price
 
-from .sulpak import Sulpak
-from .technodom import Technodom
-from .mechta import Mechta
-from .veter import Veter
 from .consts import CATEGORIES
 from .consts import SHOP_CLASSES
 from .consts import SHOPS

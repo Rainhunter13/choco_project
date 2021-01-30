@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from myapi.controller import views
+from myapi import views
 
 
 class ProductListRouter(routers.DefaultRouter):
