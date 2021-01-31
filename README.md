@@ -1,4 +1,4 @@
-# choco_project [last update: 30.01.2021]
+# choco_project [last update: 31.01.2021]
 choco_project is REST API designed for working with products price informaion from shops like "sulpak.kz", "technodom.kz", "", "". Project is developed as a part of the software engineering internship in Chocofamily Holding.
 
 ## Project structure:
@@ -69,12 +69,12 @@ With choco_project you could easily keep track of product prices for specific pr
 - Response: Product object list
 
 6. Cheapest product from specific category:
-- Route: ``` /{category} ```
+- Route: ``` /{category}/min_price ```
 - Method: GET
 - Response: Product object
 
 7. Most expensive product from specific category:
-- Route: ``` /{category} ```
+- Route: ``` /{category}/max_price ```
 - Method: GET
 - Response: Product object
 
