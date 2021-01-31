@@ -1,5 +1,5 @@
 # choco_project [last update: 31.01.2021]
-choco_project is REST API designed for working with products price informaion from shops like "sulpak.kz", "technodom.kz", "", "". Project is developed as a part of the software engineering internship in Chocofamily Holding.
+choco_project is REST API designed for working with products price informaion from shops like "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz". Project is developed as a part of the software engineering internship in Chocofamily Holding.
 
 ## Project structure:
 <pre>
