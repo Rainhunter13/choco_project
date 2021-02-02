@@ -21,52 +21,42 @@ class ProductViewSet(viewsets.ModelViewSet):
 	http_method_names = ['get']
 
 
-# ---------------------------------------------- SELLER VIEW SETS ------------------------------------------------------
-class SulpakViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.filter(old_prices__prices__seller="sulpak", old_prices__prices__price__gt=0).distinct()
-	serializer_class = ProductOldPricesSerializer
-	lookup_field = 'id'
-	http_method_names = ['get']
+# ------------------------------------------------ SELLER VIEWS --------------------------------------------------------
+@api_view(['GET'])
+def seller_product_list(request, seller):
+	serializer = ProductOldPricesSerializer(
+		Product.objects.filter(old_prices__prices__seller=seller, old_prices__prices__price__gt=0).distinct(),
+		many=True
+	)
+	return Response(serializer.data)
 
 
-class TechnodomViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.filter(old_prices__prices__seller="technodom", old_prices__prices__price__gt=0).distinct()
-	serializer_class = ProductOldPricesSerializer
-	lookup_field = 'id'
-	http_method_names = ['get']
-
-
-class MechtaViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.filter(old_prices__prices__seller="mechta", old_prices__prices__price__gt=0).distinct()
-	serializer_class = ProductOldPricesSerializer
-	lookup_field = 'id'
-	http_method_names = ['get']
-
-
-class VeterViewSet(viewsets.ModelViewSet):
-	queryset = Product.objects.filter(old_prices__prices__seller="veter", old_prices__prices__price__gt=0).distinct()
-	serializer_class = ProductOldPricesSerializer
-	lookup_field = 'id'
-	http_method_names = ['get']
+@api_view(['GET'])
+def seller_product(request, seller, id):
+	serializer = ProductOldPricesSerializer(
+		Product.objects.filter(id=id),
+		many=True
+	)
+	return Response(serializer.data)
 
 
 # ----------------------------------------------- CATEGORY VIEWS -------------------------------------------------------
 @api_view(['GET'])
-def category(request, cat):
-	data = Product.objects.filter(category=cat)
+def category(request, ctg):
+	data = Product.objects.filter(category=ctg)
 	serializer = ProductSerializer(data, many=True)
 	return Response(serializer.data)
 
 
 @api_view(['GET'])
-def category_min_price(request, cat):
-	product, seller = find_min_price(cat)
+def category_min_price(request, ctg):
+	product, seller = find_min_price(ctg)
 	serializer = MinMaxSerializer(product, many=False)
 	return Response(serializer.data)
 
 
 @api_view(['GET'])
-def category_max_price(request, cat):
-	product, seller = find_max_price(cat)
+def category_max_price(request, ctg):
+	product, seller = find_max_price(ctg)
 	serializer = MinMaxSerializer(product, many=False)
 	return Response(serializer.data)
