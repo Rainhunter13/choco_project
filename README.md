@@ -4,13 +4,33 @@ choco_project is REST API designed for working with products price informaion fr
 ## Project structure:
 <pre>
 .                                                                 
-├── choco_project               # Project settings files    
-    └── <em>to be filled soon...</em>                         
+├── choco_project               # project settings    
+    ├── __init__.py             
+    ├── asgi.py                 # ASGI config
+    ├── celery.py               # celery task queue
+    ├── settings.py             # settings
+    ├── urls.py                 # api root router
+    └── wsgi.py                 # WSGI config
+├── configurations              # project configurations
+    ├── __init__.py
+├── logs                        # logs 
+    ├── __init__.py
+    └── celery.logs             # celery logs
 ├── myapi                       # REST API related files
-    └── <em>to be filled soon...</em>    
-├── .gitignore                  # .gitignore file      
-├── celery.logs                 # Celery logs      
-├── celerybeat-schedule         # Celery schedule (auto-generated)             
+    ├── __init__.py
+    ├── migrations/             # app/db migrations
+    ├── services/               # app services
+    ├── admin.py                # registering models here
+    ├── apps.py                 # app config
+    ├── models.py               # db models
+    ├── serializers.py          # models serializers
+    ├── urls.py                 # urls routing
+    └── views.py                # views
+├── test                        # tests
+    ├── __init__.py
+    └── test_product.py         # test for product object
+├── .dockerignore               # .gitignore file      
+├── .gitignore                  # .gitignore file                 
 ├── docker-compose.yml          # .yml file for docker-compose
 ├── Dockerfile                  # Dockerfile                      
 ├── manage.py                   # Django project manager                  
@@ -27,11 +47,13 @@ git clone https://github.com/Rainhunter13/choco_project
 
 2. Set project configurations:  <br/>
   2.1. Create PostgreSQL database and define related settings in the /choco_project/settings.py  <br/>
-  2.2. Create config.py file in the root directory and define 'SECRET_KEY' (Django project key) and 'db_password' variables (PostgresQL database password)  <br/>
-  2.3. Put the BigQuery credentials *file_name*.json file in the root directory and set a path to it in the updater.py  <br/>
-  2.4. Download and put the encoder_model folder in the root directory - Universal Sentense Encoding model which could be downloaded from https://tfhub.dev/google/universal-sentence-encoder/4  <br/>
+  2.2. Create config.py file in the /configurations directory and define ```SECRET_KEY``` (Django project key) and ```db_password``` variables (PostgresQL database password)  <br/>
+  2.3. Put the BigQuery credentials choco_big_query_credentials.json file in the /configurations directory  <br/>
+  2.4. Download and put the encoder_model folder in the /configurations directory - Universal Sentense Encoding model which could be downloaded from https://tfhub.dev/google/universal-sentence-encoder/4  <br/>
 
-3. Run docker-compose:
+3. Install Docker Compose from: https://docs.docker.com/compose/install/
+
+4. Run docker-compose:
 ```
 sudo docker-compose up --build
 ```
@@ -64,17 +86,17 @@ With choco_project you could easily keep track of product prices for specific pr
 - Response: Product object
 
 5. Product List of specific category:
-- Route: ``` /api/{category} ```
+- Route: ``` /api/category/{category} ```
 - Method: GET
 - Response: Product object list
 
 6. Cheapest product from specific category:
-- Route: ``` /api/{category}/min_price ```
+- Route: ``` /api/category/{category}/min_price ```
 - Method: GET
 - Response: Product object
 
 7. Most expensive product from specific category:
-- Route: ``` /api/{category}/max_price ```
+- Route: ``` /api/category/{category}/max_price ```
 - Method: GET
 - Response: Product object
 
