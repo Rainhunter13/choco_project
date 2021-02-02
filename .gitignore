@@ -1,6 +1,8 @@
-config.py
-choco-big-query-2-44bb243a8b97.json
+configurations/config.py
+configurations/choco_big_query_credentials.json
+celerybeat-schedule
+encoder_model
 
 env
 .idea
-encoder_model
+logs/celery.logs

@@ -8,6 +8,11 @@ from .consts import CATEGORIES
 from .consts import SHOP_CLASSES
 from .consts import SHOPS
 
+from .sulpak import Sulpak
+from .technodom import Technodom
+from .mechta import Mechta
+from .veter import Veter
+
 SIMILAR_PRODUCTS = {}
 
 
@@ -84,7 +89,8 @@ def update_big_query():
 	"""Update the Big Query database with the list of newly parsed product objects list"""
 	import os
 	from google.cloud import bigquery
-	credentials_path = os.path.dirname(os.path.abspath("updater.py")) + "/choco-big-query-2-44bb243a8b97.json"
+	root_path = os.path.dirname(os.path.abspath("updater.py"))
+	credentials_path = root_path + "/configurations/choco_big_query_credentials.json"
 	os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
 	schema = [
@@ -183,5 +189,4 @@ def merge(check_product, another_product):
 		else:
 			price = Price(product=check_product, seller=shop, price=another_product_shops[shop])
 		price.save()
-
 	another_product.delete()

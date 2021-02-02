@@ -37,7 +37,6 @@ services:
       - web
       - redis
       - db
-#      - hub
 
   celery_beat:
     build: .
