@@ -1,5 +1,5 @@
-# choco_project [last update: 30.01.2021]
-choco_project is REST API designed for working with products price informaion from shops like "sulpak.kz", "technodom.kz", "", "". Project is developed as a part of the software engineering internship in Chocofamily Holding.
+# choco_project [last update: 02.02.2021]
+choco_project is REST API designed for working with products price informaion from sellers like "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz". Project is developed as a part of the software engineering internship in Chocofamily Holding.
 
 ## Project structure:
 <pre>
@@ -39,7 +39,7 @@ sudo docker-compose up --build
 ## Usage:
 
 ### Application capabilities
-With choco_project you could easily keep track of product prices for specific products you need. Products are availabale in 4 categories - "laptop", "tablet", "monitor", "eBook" from 4 shops "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz". Product information contains information such as product name, category, and prices for different dates and time slots. Prices are checked once an hour and updated when needed. You are also able to search for the cheapest or most expensive product in specific category. Currently avaialable categories are: 'laptop', 'tablet', 'monitor', 'eBook', 'fridge', 'freezer', 'electric_stoves', 'multicooker', 'meet_grinder', 'microwave'.
+With choco_project you could easily keep track of product prices for specific products you need. Products are availabale in 4 categories - "laptop", "tablet", "monitor", "eBook" from 4 sellers: "sulpak.kz", "technodom.kz", "mechta.kz", "shop.kz". Product information contains information such as product name, category, and prices for different dates and time slots. Prices are checked once an hour and updated when needed. You are also able to search for the cheapest or most expensive product in specific category. Currently avaialable categories are: 'laptop', 'tablet', 'monitor', 'eBook', 'fridge', 'freezer', 'electric_stoves', 'multicooker', 'meet_grinder', 'microwave'.
 
 ### REST API endpoints
 
@@ -53,28 +53,28 @@ With choco_project you could easily keep track of product prices for specific pr
 - Method: GET
 - Response: Product object
 
-3. Product list from specific shop:
-- Route: ``` /api/{shop} ```
+3. Product list from specific seller:
+- Route: ``` /api/{seller} ```
 - Method: GET
 - Response: Product object list
 
-4. Specific product information from specific shop:
-- Route: ``` /api/{shop}/{id} ```
+4. Specific product information from specific seller:
+- Route: ``` /api/{seller}/{id} ```
 - Method: GET
 - Response: Product object
 
 5. Product List of specific category:
-- Route: ``` /{category} ```
+- Route: ``` /api/{category} ```
 - Method: GET
 - Response: Product object list
 
 6. Cheapest product from specific category:
-- Route: ``` /{category} ```
+- Route: ``` /api/{category}/min_price ```
 - Method: GET
 - Response: Product object
 
 7. Most expensive product from specific category:
-- Route: ``` /{category} ```
+- Route: ``` /api/{category}/max_price ```
 - Method: GET
 - Response: Product object
 
@@ -83,7 +83,7 @@ With choco_project you could easily keep track of product prices for specific pr
 - Celery task queue is used to make periodical price updates. 
 - Parsers are implemented with python requests, selenium and beatifioul soup libraries.
 - Docker Compose is set for the easy outside-of-the-box project execution.
-- Products from different shops are checked for similarity and merged when needed by using Universal Sentence Encoder and Cosine Similarity algorithms. 
+- Products from different sellers are checked for similarity and merged when needed by using Universal Sentence Encoder and Cosine Similarity algorithms. 
 - Filtered data is transfered to the Google BigQuery analytic cloud database. Top 3 cheapest and most expensive products are accessible with the Standard SQL Queries written in the BigQuery Console.
 - Logs of celery tasks are put in the celery.logs file.
 - Project is developed with Git VCS.
